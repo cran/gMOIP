@@ -1,0 +1,13 @@
+926ce9c464f778c91bf7bb4e9766d5b4 *DESCRIPTION
+39f56428c90bb0cb48ee9c67ec0a560b *NAMESPACE
+f350d26a1f53a7f642bffab24f2e338c *R/functions.R
+7bb091c75678a2598bbeae876849b52b *R/package_doc.R
+b05d8623b6195548755b9b5773b7686f *inst/examples/examples.R
+1530e120adaa4d4fffba23b5005756e5 *man/cornerPoints.Rd
+72cc7e0f77eacd44a1f12328c2a3764a *man/criterionPoints.Rd
+c7af3138e16535fbfdaef2cc1f6f157e *man/gMOIP.Rd
+cde652c28ca14b6af1d1a1e89c224c9a *man/getA.Rd
+dfe56affcd4f205941c8a645f825e19a *man/getC.Rd
+ab1564ea597abe9b2d9b40ca2e4c7a84 *man/integerPoints.Rd
+5da353e7602fd5c619166070fb8b42fc *man/plotCriterion.Rd
+da44a9a540d427480f2a96d7be9ce7bf *man/plotPolytope.Rd
