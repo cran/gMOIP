@@ -1,49 +1,24 @@
 ## functions for 2D plots for bounded MO-MILP problems in criterion and solution space.
 
 
-#' Integer points inside an LP.
+#' Integer points inside the feasible region (Ax<=b).
 #'
-#' @param LP The LP object defined using lpSolveAPI
+#' @param A A matrix.
+#' @param b Right hand side.
 #'
 #' @return A data frame with all integer points inside the feasible region (columns x1, x2, lbl).
 #' @note Do a simple enumeration of all integer points between min and max.
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @export
-#' @examples
-#' # Create the LP using lpSolveAPI package
-#' LP <- make.lp(0, 2)
-#' set.objfn(LP, c(7.75, 10))
-#' add.constraint(LP, c(9, 10), "<=", 90)
-#' add.constraint(LP, c(2, 4), "<=", 27)
-#' add.constraint(LP, c(-3, 2), "<=", 3)
-#' colNames <- c("x1", "x2")
-#' colnames(LP) <- colNames
-#' set.type(LP, c(1,2), type = "integer")
-#'
-#' control <- lp.control(LP, sense='max')
-#' cPoints<-cornerPoints(getA(LP), get.rhs(LP))
-#' iPoints<-integerPoints(LP)
-#'
-#' plotPolytope(cPoints, iPoints, iso = getC(LP), crit = substr(lp.control(LP)$sense,1,3))
-#' @import lpSolveAPI
-integerPoints<-function(LP) {
-   A <- getA(LP)
-   b <- get.rhs(LP)
-   c <- getC(LP)
+#' @example inst/examples/examples.R
+integerPoints<-function(A, b) {
+   cPoints <- cornerPoints(A, b)
    eps <- rep(0.00001,length(b))
-   obj <- lp.control(LP)$sense
-   if (obj=="minimize") lp.control(LP, sense='max')
-   set.objfn(LP, c(1, 0))
-   solve(LP)
-   maxX1<-get.objective(LP)
-   set.objfn(LP, c(0, 1))
-   solve(LP)
-   maxX2<-get.objective(LP)
-   set.objfn(LP, c) # restore
-   lp.control(LP, sense=obj)
-   minX1 <- get.bounds(LP, columns = 1)$lower
-   minX2 <- get.bounds(LP, columns = 2)$lower
-   const <- get.constr.type(LP)
+   maxX1<-floor(max(cPoints$x1))
+   maxX2<-floor(max(cPoints$x2))
+   minX1 <- ceiling(min(cPoints$x1))
+   minX2 <- ceiling(min(cPoints$x2))
+   const <- rep('<=',dim(A)[1])
    ans<-matrix(0, 0, 2)
    for (x1 in minX1:maxX1) {
       for (x2 in minX2:maxX2) {
@@ -59,39 +34,6 @@ integerPoints<-function(LP) {
    return(ans)
 }
 
-
-
-#' Return the A matrix of the LP
-#'
-#' @param LP The LP object defined using lpSolveAPI
-#' @author Lars Relund \email{lars@@relund.dk}
-#' @export
-getA<-function(LP) {
-   m <- dim(LP)[1]
-   n <- dim(LP)[2]
-   ans <- matrix(0, m, n)
-   for (c in 1:n) {
-      for (r in 1:m) ans[r,c]<-get.mat(LP,r,c)
-   }
-   return(ans)
-}
-
-
-
-#' Return the coefficient vector of the LP
-#'
-#' @param LP The LP object defined using lpSolveAPI
-#' @author Lars Relund \email{lars@@relund.dk}
-#' @export
-getC<-function(LP) {
-   n <- dim(LP)[2]
-   ans <- rep(0,n)
-   for (c in 1:n) {
-      res<-get.column(LP,c)
-      if (res$nzrow[1]==0) ans[c] <- res$column[1]
-   }
-   return(ans)
-}
 
 
 
@@ -320,14 +262,16 @@ criterionPoints<-function(points, c1, c2, crit) {
 #' @param showLbl Add labels to the points (only if points have a \code{lbl} column).
 #' @param iso NULL or if 2D vector add the iso profit line the the solution plot.
 #' @param crit Either max or min (only used if add the iso profit line)
-#' @param ... Arguments passed to \link{geom_point}.
+#' @param latex If true make latex math labels for TikZ.
+#' @param ... Arguments passed to the \link{aes} function in \link{geom_point}.
 #'
 #' @return The ggplot2 object.
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @export
 #' @example inst/examples/examples.R
 #' @import ggplot2
-plotPolytope<-function(cPoints = NULL, points = NULL, showLbl=FALSE, iso=NULL, crit="max", ...)
+plotPolytope<-function(cPoints = NULL, points = NULL, showLbl=FALSE, iso=NULL, crit="max",
+                       latex = FALSE, ...)
 {
    # Set Custom theme
    myTheme <- theme_set(theme_bw())
@@ -343,7 +287,9 @@ plotPolytope<-function(cPoints = NULL, points = NULL, showLbl=FALSE, iso=NULL, c
    )
 
    # Create solution plot
-   p<- ggplot() + coord_fixed(ratio = 1) + xlab("$x_1$") + ylab("$x_2$")
+   p<- ggplot() + coord_fixed(ratio = 1)
+   if (latex) p <- p + xlab("$x_1$") + ylab("$x_2$")
+   if (!latex) p <- p + xlab(expression(x[1])) + ylab(expression(x[2]))
    #coord_cartesian(xlim = c(-0.1, max(cPoints$x1)+1), ylim = c(-0.1, max(cPoints$x2)+1), expand = F) +
    if (!is.null(cPoints))
       p <- p + geom_polygon(data = cPoints, aes_string(x = 'x1', y = 'x2'), fill="gray90", size = 0.5,
@@ -354,7 +300,7 @@ plotPolytope<-function(cPoints = NULL, points = NULL, showLbl=FALSE, iso=NULL, c
    #    geom_segment(aes(x=0, xend = 0 , y=0, yend = max(cPoints$x2)+1), size=1, arrow = arrow(length = unit(0.3,"cm")))
    # integer points
    if (!is.null(points)) {
-      p <- p + geom_point(aes_string(x = 'x1', y = 'x2'), data=points, ...)
+      p <- p + geom_point(aes_string(x = 'x1', y = 'x2', ...), data=points)
       if (showLbl & length(points$lbl)>0) {
          nudgeS=-(max(points$x1)-min(points$x1))/100
          if (anyDuplicated(cbind(points$x1,points$x2), MARGIN = 1) > 0)
@@ -370,7 +316,8 @@ plotPolytope<-function(cPoints = NULL, points = NULL, showLbl=FALSE, iso=NULL, c
          points$z <- c[1]*points$x1 + c[2]*points$x2
          if (crit=="max") i <- which.max(points$z)
          if (crit=="min") i <- which.min(points$z)
-         str <- paste0("$x^* = (", points$x1[i], ",", points$x2[i], ")$")
+         if (latex) str <- paste0("$x^* = (", points$x1[i], ",", points$x2[i], ")$")
+         if (!latex) str <- paste0("x* = (", points$x1[i], ",", points$x2[i], ")")
          if (c[2]!=0) {
             p <- p + geom_abline(intercept = points$z[i]/c[2], slope = -c[1]/c[2], lty="dashed")
          } else {
@@ -392,12 +339,15 @@ plotPolytope<-function(cPoints = NULL, points = NULL, showLbl=FALSE, iso=NULL, c
 #' @param addHull Add the convex hull of the non-dominated points and rays.
 #' @param crit Either min or max. The objective the criterion points are classified as. Note must
 #'    be the same as used in \link{criterionPoints}.
+#' @param latex If true make latex math labels for TikZ.
 #'
 #' @return The ggplot2 object.
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @export
 #' @example inst/examples/examples.R
-plotCriterion<-function(points, showLbl=FALSE, addTriangles = FALSE, addHull = TRUE, crit="max") {
+plotCriterion<-function(points, showLbl=FALSE, addTriangles = FALSE, addHull = TRUE, crit="max",
+                        latex = FALSE)
+{
    # Set Custom theme
    myTheme <- theme_set(theme_bw())
    myTheme <- theme_update(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -411,10 +361,10 @@ plotCriterion<-function(points, showLbl=FALSE, addTriangles = FALSE, addHull = T
    )
 
    # Create criterion plot
-   p <- ggplot(points, aes_string(x = 'z1', y = 'z2') ) +
+   p <- ggplot(points, aes_string(x = 'z1', y = 'z2') )
+   if (latex) p <- p + xlab("$z_1$") + ylab("$z_2$")
+   if (!latex) p <- p + xlab(expression(z[1])) + ylab(expression(z[2]))
       #coord_cartesian(xlim = c(min(points$z1)-delta, max(points$z1)+delta), ylim = c(min(points$z2)-delta, max(points$z2)+delta), expand = F) +
-      xlab("$z_1$") +
-      ylab("$z_2$")
    if (addHull) {
       tmp<-points[points$ext & !duplicated(cbind(points$z1,points$z2), MARGIN = 1),]
       delta=max( (max(points$z1)-min(points$z1))/10, (max(points$z2)-min(points$z2))/10 )
@@ -439,7 +389,7 @@ plotCriterion<-function(points, showLbl=FALSE, addTriangles = FALSE, addHull = T
       p <- p + geom_polygon(fill="gray90", data=tmp)
    }
    if (addTriangles) {
-      tmp<-points[points$ext,]
+      tmp<-points[points$ext | points$nonExt,]
       if (length(tmp$z1)>1) { # triangles
          for (r in 1:(dim(tmp)[1] - 1)) {
             p <- p +

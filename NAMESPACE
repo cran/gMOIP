@@ -2,10 +2,7 @@
 
 export(cornerPoints)
 export(criterionPoints)
-export(getA)
-export(getC)
 export(integerPoints)
 export(plotCriterion)
 export(plotPolytope)
 import(ggplot2)
-import(lpSolveAPI)
