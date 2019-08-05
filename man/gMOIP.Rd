@@ -4,62 +4,18 @@
 \name{gMOIP}
 \alias{gMOIP}
 \alias{gMOIP-package}
-\alias{gMOIP-package}
 \title{2D plots of linear/integer programming models.}
 \description{
-Make 2D plots of the polyeder of a LP or IP problem, including integer points and iso profit
-curve. Can also make a plot of a bi-objective criterion space.
+Make 2D and 3D plots of the polytope of a linear programming (LP), integer linear programming
+(ILP) model, or mixed integer linear programming (MILP) model with 2 or 3 variables, including
+integer points, ranges and iso profit curve.
 }
-\examples{
-# Define the LP max/min coeff*x st. Ax<=b, x>=0
-A <- matrix(c(9,10,2,4,-3,2), ncol = 2, byrow = TRUE)
-b <- c(90,27,3)
-coeff <- c(7.75, 10)
-
-# Corner points of the polytope
-cPoints<-cornerPoints(A, b)
-# Integer points in the polytope
-iPoints<-integerPoints(A, b)
-
-# Plot of the polytope
-plotPolytope(cPoints)
-plotPolytope(points = cPoints)
-plotPolytope(points = iPoints)
-plotPolytope(cPoints, cPoints, iso = coeff, crit = "max")
-plotPolytope(cPoints, iPoints, iso = coeff, crit = "max")
-plotPolytope(cPoints, iPoints, showLbl = TRUE)
-plotPolytope(cPoints, iPoints, iso = c(3,-3), crit = "min")
-plotPolytope(cPoints, iPoints) + xlab("x") + ylab("y")
-
-# Plot of criterion points given a bi-objective vector
-zPoints<-criterionPoints(iPoints, c1 = c(coeff[1], 0), c2 = c(0, coeff[2]), crit = "max")
-head(zPoints)
-plotCriterion(zPoints)
-plotCriterion(zPoints, addHull = FALSE, addTriangles = TRUE)
-# mimimize
-zPoints<-criterionPoints(zPoints, c1 = c(-1, 1), c2 = c(1, -1), crit = "min")
-plotCriterion(zPoints, addHull = TRUE, addTriangles = TRUE, crit = "min")
-# identify solutions (x1,x2) corresponding to (z1,z2)
-plotPolytope(cPoints, zPoints, showLbl = TRUE)
-plotCriterion(zPoints, addHull = TRUE, addTriangles = TRUE, crit = "min", showLbl = TRUE)
-# max and min
-zPoints<-criterionPoints(iPoints, c1 = c(-2, -1), c2 = c(1, 4), crit = "max")
-plotPolytope(cPoints, zPoints, showLbl = TRUE, shape = zPoints$nD)
-plotCriterion(zPoints, addHull = TRUE, addTriangles = TRUE, crit = "max", showLbl = TRUE)
-zPoints<-criterionPoints(iPoints, c1 = c(-2, -1), c2 = c(1, 4), crit = "min")
-plotCriterion(zPoints, addHull = TRUE, addTriangles = TRUE, crit = "min", showLbl = TRUE)
-
-\dontrun{
-# Generate tikz file for LaTeX
-library(tikzDevice)
-tikz(file = "plot_polytope.tex", standAlone=F, width = 7, height = 6)
-plotPolytope(cPoints, zPoints, showLbl = TRUE)
-dev.off()
-}
-
+\details{
+Can also make a plot of the bi-objective criterion space and the non-dominated (Pareto) set for
+bi-objective LP/ILP/MILP programming models.
 }
 \seealso{
-\link{plotPolytope} and \link{plotCriterion}.
+\link{plotPolytope} and \link{plotCriterion2D}.
 }
 \author{
 Lars Relund <lars@relund.dk> [aut, cre].

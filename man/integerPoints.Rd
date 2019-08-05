@@ -2,72 +2,36 @@
 % Please edit documentation in R/functions.R
 \name{integerPoints}
 \alias{integerPoints}
-\title{Integer points inside the feasible region (Ax<=b).}
+\title{Integer points in the feasible region (Ax<=b).}
 \usage{
-integerPoints(A, b)
+integerPoints(A, b, nonneg = rep(TRUE, ncol(A)))
 }
 \arguments{
-\item{A}{A matrix.}
+\item{A}{Constraint matrix.}
 
 \item{b}{Right hand side.}
+
+\item{nonneg}{A boolean vector of same length as number of variables. If
+entry k is TRUE then variable k must be non-negative.}
 }
 \value{
-A data frame with all integer points inside the feasible region (columns x1, x2, lbl).
+A data frame with all integer points inside the feasible region.
 }
 \description{
-Integer points inside the feasible region (Ax<=b).
+Integer points in the feasible region (Ax<=b).
 }
 \note{
-Do a simple enumeration of all integer points between min and max.
+Do a simple enumeration of all integer points between min and max values found using the continuous polytope.
 }
 \examples{
-# Define the LP max/min coeff*x st. Ax<=b, x>=0
-A <- matrix(c(9,10,2,4,-3,2), ncol = 2, byrow = TRUE)
-b <- c(90,27,3)
-coeff <- c(7.75, 10)
+A <- matrix( c(3,-2, 1, 2, 4,-2,-3, 2, 1), nc = 3, byrow = TRUE)
+b <- c(10, 12, 3)
+integerPoints(A, b)
 
-# Corner points of the polytope
-cPoints<-cornerPoints(A, b)
-# Integer points in the polytope
-iPoints<-integerPoints(A, b)
-
-# Plot of the polytope
-plotPolytope(cPoints)
-plotPolytope(points = cPoints)
-plotPolytope(points = iPoints)
-plotPolytope(cPoints, cPoints, iso = coeff, crit = "max")
-plotPolytope(cPoints, iPoints, iso = coeff, crit = "max")
-plotPolytope(cPoints, iPoints, showLbl = TRUE)
-plotPolytope(cPoints, iPoints, iso = c(3,-3), crit = "min")
-plotPolytope(cPoints, iPoints) + xlab("x") + ylab("y")
-
-# Plot of criterion points given a bi-objective vector
-zPoints<-criterionPoints(iPoints, c1 = c(coeff[1], 0), c2 = c(0, coeff[2]), crit = "max")
-head(zPoints)
-plotCriterion(zPoints)
-plotCriterion(zPoints, addHull = FALSE, addTriangles = TRUE)
-# mimimize
-zPoints<-criterionPoints(zPoints, c1 = c(-1, 1), c2 = c(1, -1), crit = "min")
-plotCriterion(zPoints, addHull = TRUE, addTriangles = TRUE, crit = "min")
-# identify solutions (x1,x2) corresponding to (z1,z2)
-plotPolytope(cPoints, zPoints, showLbl = TRUE)
-plotCriterion(zPoints, addHull = TRUE, addTriangles = TRUE, crit = "min", showLbl = TRUE)
-# max and min
-zPoints<-criterionPoints(iPoints, c1 = c(-2, -1), c2 = c(1, 4), crit = "max")
-plotPolytope(cPoints, zPoints, showLbl = TRUE, shape = zPoints$nD)
-plotCriterion(zPoints, addHull = TRUE, addTriangles = TRUE, crit = "max", showLbl = TRUE)
-zPoints<-criterionPoints(iPoints, c1 = c(-2, -1), c2 = c(1, 4), crit = "min")
-plotCriterion(zPoints, addHull = TRUE, addTriangles = TRUE, crit = "min", showLbl = TRUE)
-
-\dontrun{
-# Generate tikz file for LaTeX
-library(tikzDevice)
-tikz(file = "plot_polytope.tex", standAlone=F, width = 7, height = 6)
-plotPolytope(cPoints, zPoints, showLbl = TRUE)
-dev.off()
-}
-
+A <- matrix(c(9, 10, 2, 4, -3, 2), ncol = 2, byrow = TRUE)
+b <- c(90, 27, 3)
+integerPoints(A, b)
 }
 \author{
-Lars Relund \email{lars@relund.dk}
+Lars Relund \email{lars@relund.dk}.
 }
