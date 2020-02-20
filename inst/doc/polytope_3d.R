@@ -1,4 +1,4 @@
-## ---- include = FALSE----------------------------------------------------
+## ---- include = FALSE---------------------------------------------------------
 library(knitr)
 library(rgl)
 opts_chunk$set(
@@ -11,10 +11,10 @@ opts_chunk$set(
 
 knit_hooks$set(webgl = hook_webgl, rgl = hook_rgl)
 
-## ----setup---------------------------------------------------------------
+## ----setup--------------------------------------------------------------------
 library(gMOIP)
 
-## ----ex1Model------------------------------------------------------------
+## ----ex1Model-----------------------------------------------------------------
 A <- matrix( c(
    3, 2, 5,
    2, 1, 1,
@@ -24,48 +24,48 @@ A <- matrix( c(
 b <- c(55, 26, 30, 57)
 obj <- c(20, 10, 15)
 
-## ----ex1View-------------------------------------------------------------
+## ----ex1View------------------------------------------------------------------
 view <- matrix( c(-0.412063330411911, -0.228006735444069, 0.882166087627411, 0, 0.910147845745087,
                   -0.0574885793030262, 0.410274744033813, 0, -0.042830865830183, 0.97196090221405,
                   0.231208890676498, 0, 0, 0, 0, 1), nc = 4)
 
-## ----ex1LP, webgl = TRUE-------------------------------------------------
+## ----ex1LP, webgl = TRUE------------------------------------------------------
 loadView(v = view, close = F, zoom = 0.75)
 plotPolytope(A, b, plotOptimum = TRUE, obj = obj)
 
-## ----ex1ILP, webgl = TRUE------------------------------------------------
+## ----ex1ILP, webgl = TRUE-----------------------------------------------------
 loadView(v = view)
-mfrow3d(nr = 1, nc = 2, sharedMouse = TRUE)
+rgl::mfrow3d(nr = 1, nc = 2, sharedMouse = TRUE)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","i","i"), plotOptimum = TRUE, obj = obj, 
              argsTitle3d = list(main = "With LP faces"), argsPlot3d = list(box = F, axes = T) )
 plotPolytope(A, b, faces = c("i","i","i"), type = c("i","i","i"), plotFeasible = FALSE, obj = obj,
              argsTitle3d = list(main = "ILP faces") )
 
-## ----ex1MILP_1, rgl = TRUE-----------------------------------------------
+## ----ex1MILP_1, rgl = TRUE----------------------------------------------------
 loadView(v = view, close = T, zoom = 0.75)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","c","i"), plotOptimum = TRUE, obj = obj)
 
-## ----ex1MILP_2, rgl = TRUE-----------------------------------------------
+## ----ex1MILP_2, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("c","i","i"), plotOptimum = TRUE, obj = obj)
 
-## ----ex1MILP_3, rgl = TRUE-----------------------------------------------
+## ----ex1MILP_3, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","i","c"), plotOptimum = TRUE, obj = obj)
 
-## ----ex1MILP_4, rgl = TRUE-----------------------------------------------
+## ----ex1MILP_4, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("i","c","c"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ----ex1MILP_5, rgl = TRUE-----------------------------------------------
+## ----ex1MILP_5, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("c","i","c"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ----ex1MILP_6, rgl = TRUE-----------------------------------------------
+## ----ex1MILP_6, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("c","c","i"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ----ex2Model------------------------------------------------------------
+## ----ex2Model-----------------------------------------------------------------
 A <- matrix( c(
    1, 1, 1,
    3, 0, 1
@@ -73,48 +73,48 @@ A <- matrix( c(
 b <- c(10, 24)
 obj <- c(20, 10, 15)
 
-## ----ex2View-------------------------------------------------------------
+## ----ex2View------------------------------------------------------------------
 view <- matrix( c(-0.812462985515594, -0.029454167932272, 0.582268416881561, 0, 0.579295456409454,
                   -0.153386667370796, 0.800555109977722, 0, 0.0657325685024261, 0.987727105617523,
                   0.14168381690979, 0, 0, 0, 0, 1), nc = 4)
 
-## ----ex2LP, webgl = TRUE-------------------------------------------------
+## ----ex2LP, webgl = TRUE------------------------------------------------------
 loadView(v = view, close = F, zoom = 0.75)
 plotPolytope(A, b, plotOptimum = TRUE, obj = obj, labels = "coord")
 
-## ----ex2ILP, webgl = TRUE------------------------------------------------
+## ----ex2ILP, webgl = TRUE-----------------------------------------------------
 loadView(v = view)
-mfrow3d(nr = 1, nc = 2, sharedMouse = TRUE)
+rgl::mfrow3d(nr = 1, nc = 2, sharedMouse = TRUE)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","i","i"), plotOptimum = TRUE, obj = obj, 
              argsTitle3d = list(main = "With LP faces"), argsPlot3d = list(box = F, axes = T) )
 plotPolytope(A, b, faces = c("i","i","i"), type = c("i","i","i"), plotFeasible = FALSE, obj = obj,
              argsTitle3d = list(main = "ILP faces") )
 
-## ----ex2MILP_1, rgl = TRUE-----------------------------------------------
+## ----ex2MILP_1, rgl = TRUE----------------------------------------------------
 loadView(v = view, close = T, zoom = 0.75)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","c","i"), plotOptimum = TRUE, obj = obj)
 
-## ----ex2MILP_2, rgl = TRUE-----------------------------------------------
+## ----ex2MILP_2, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("c","i","i"), plotOptimum = TRUE, obj = obj)
 
-## ----ex2MILP_3, rgl = TRUE-----------------------------------------------
+## ----ex2MILP_3, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","i","c"), plotOptimum = TRUE, obj = obj)
 
-## ----ex2MILP_4, rgl = TRUE-----------------------------------------------
+## ----ex2MILP_4, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("i","c","c"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ----ex2MILP_5, rgl = TRUE-----------------------------------------------
+## ----ex2MILP_5, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("c","i","c"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ----ex2MILP_6, rgl = TRUE-----------------------------------------------
+## ----ex2MILP_6, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("c","c","i"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ----ex3Model------------------------------------------------------------
+## ----ex3Model-----------------------------------------------------------------
 A <- matrix( c(
    -1, 1, 0,
    1, 4, 0,
@@ -125,48 +125,48 @@ A <- matrix( c(
 b <- c(5, 45, 27, 24, 10)
 obj <- c(5, 45, 15)
 
-## ----ex3View-------------------------------------------------------------
+## ----ex3View------------------------------------------------------------------
 view <- matrix( c(0.976349174976349, -0.202332556247711, 0.0761845782399178, 0, 0.0903248339891434,
                   0.701892614364624, 0.706531345844269, 0, -0.196427255868912, -0.682940244674683,
                   0.703568696975708, 0, 0, 0, 0, 1), nc = 4)
 
-## ----ex3LP, webgl = TRUE-------------------------------------------------
+## ----ex3LP, webgl = TRUE------------------------------------------------------
 loadView(v = view, close = F, zoom = 0.75)
 plotPolytope(A, b, plotOptimum = TRUE, obj = obj, labels = "coord")
 
-## ----ex3ILP, webgl = TRUE------------------------------------------------
+## ----ex3ILP, webgl = TRUE-----------------------------------------------------
 loadView(v = view)
-mfrow3d(nr = 1, nc = 2, sharedMouse = TRUE)
+rgl::mfrow3d(nr = 1, nc = 2, sharedMouse = TRUE)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","i","i"), plotOptimum = TRUE, obj = obj, 
              argsTitle3d = list(main = "With LP faces"), argsPlot3d = list(box = F, axes = T) )
 plotPolytope(A, b, faces = c("i","i","i"), type = c("i","i","i"), plotFeasible = FALSE, obj = obj,
              argsTitle3d = list(main = "ILP faces") )
 
-## ----ex3MILP_1, rgl = TRUE-----------------------------------------------
+## ----ex3MILP_1, rgl = TRUE----------------------------------------------------
 loadView(v = view, close = T, zoom = 0.75)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","c","i"), plotOptimum = TRUE, obj = obj)
 
-## ----ex3MILP_2, rgl = TRUE-----------------------------------------------
+## ----ex3MILP_2, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("c","i","i"), plotOptimum = TRUE, obj = obj)
 
-## ----ex3MILP_3, rgl = TRUE-----------------------------------------------
+## ----ex3MILP_3, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","i","c"), plotOptimum = TRUE, obj = obj)
 
-## ----ex3MILP_4, rgl = TRUE-----------------------------------------------
+## ----ex3MILP_4, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("i","c","c"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ----ex3MILP_5, rgl = TRUE-----------------------------------------------
+## ----ex3MILP_5, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("c","i","c"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ----ex3MILP_6, rgl = TRUE-----------------------------------------------
+## ----ex3MILP_6, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("c","c","i"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ----ex4Model------------------------------------------------------------
+## ----ex4Model-----------------------------------------------------------------
 Ab <- matrix( c(
    1, 1, 2, 5,
    2, -1, 0, 3,
@@ -179,50 +179,50 @@ A <- Ab[,1:3]
 b <- Ab[,4]
 obj = c(1,1,3)
 
-## ----ex4View-------------------------------------------------------------
+## ----ex4View------------------------------------------------------------------
 view <- matrix( c(-0.452365815639496, -0.446501553058624, 0.77201122045517, 0, 0.886364221572876,
                   -0.320795893669128, 0.333835482597351, 0, 0.0986008867621422, 0.835299551486969,
                   0.540881276130676, 0, 0, 0, 0, 1), nc = 4)
 
-## ----ex4LP, webgl = TRUE-------------------------------------------------
+## ----ex4LP, webgl = TRUE------------------------------------------------------
 loadView(v = view, close = F, zoom = 0.75)
 plotPolytope(A, b, plotOptimum = TRUE, obj = obj, labels = "coord")
 
-## ----ex4ILP, webgl = TRUE------------------------------------------------
+## ----ex4ILP, webgl = TRUE-----------------------------------------------------
 loadView(v = view)
-mfrow3d(nr = 1, nc = 2, sharedMouse = TRUE)
+rgl::mfrow3d(nr = 1, nc = 2, sharedMouse = TRUE)
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","i","i"), plotOptimum = TRUE, obj = obj, 
              argsTitle3d = list(main = "With LP faces"), argsPlot3d = list(box = F, axes = T) )
 plotPolytope(A, b, faces = c("i","i","i"), type = c("i","i","i"), plotFeasible = FALSE, obj = obj,
              argsTitle3d = list(main = "ILP faces") )
 
-## ----ex4MILP_1, rgl = TRUE-----------------------------------------------
+## ----ex4MILP_1, rgl = TRUE----------------------------------------------------
 loadView(v = view, close = T, zoom = 0.75)
 plotPolytope(A, b, type = c("i","c","i"), plotOptimum = TRUE, obj = obj)
 
-## ----ex4MILP_2, rgl = TRUE-----------------------------------------------
+## ----ex4MILP_2, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("c","i","i"), plotOptimum = TRUE, obj = obj)
 
-## ----ex4MILP_3, rgl = TRUE-----------------------------------------------
+## ----ex4MILP_3, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("i","i","c"), plotOptimum = TRUE, obj = obj)
 
-## ----ex4MILP_4, rgl = TRUE-----------------------------------------------
+## ----ex4MILP_4, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("i","c","c"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ----ex4MILP_5, rgl = TRUE-----------------------------------------------
+## ----ex4MILP_5, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("c","i","c"), plotOptimum = TRUE, obj = obj)
 
-## ----ex4MILP_6, rgl = TRUE-----------------------------------------------
+## ----ex4MILP_6, rgl = TRUE----------------------------------------------------
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("c","c","i"), plotOptimum = TRUE, obj = obj)
 
-## ----LaTeX, eval=FALSE---------------------------------------------------
+## ----LaTeX, eval=FALSE--------------------------------------------------------
 #  loadView(v = view, close = F, zoom = 0.75)
 #  plotPolytope(A, b, plotOptimum = TRUE, obj = obj, labels = "n",
 #               argsTitle3d=list(xlab = '$x_1$', ylab='$y_1$', zlab='$y_2$'))
-#  writeASY(outtype = "pdflatex", prc = TRUE, title = "polytope")  # prc = T(interactive) / F(static)
+#  rgl::writeASY(outtype = "pdflatex", prc = TRUE, title = "polytope")  # prc = T(interactive) / F(static)
 
