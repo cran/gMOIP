@@ -88,6 +88,7 @@ obj <- matrix(
    nrow = 2)
 plotBiObj2D(A, b, obj, addTriangles = FALSE)
 
+\donttest{
 ## ILP models with different criteria (maximize)
 obj <- matrix(c(7, -10, -10, -10), nrow = 2)
 plotBiObj2D(A, b, obj, type = rep("i", ncol(A)))
@@ -98,7 +99,6 @@ plotBiObj2D(A, b, obj, type = rep("i", ncol(A)))
 obj <- matrix(c(-1, -1, 2, 2), nrow = 2)
 plotBiObj2D(A, b, obj, type = rep("i", ncol(A)))
 
-\donttest{
 ## ILP models with different criteria (minimize)
 obj <- matrix(c(7, -10, -10, -10), nrow = 2)
 plotBiObj2D(A, b, obj, type = rep("i", ncol(A)), crit = "min")
@@ -130,9 +130,10 @@ obj <- matrix(c(-7, -1, -5, 5), nrow = 2)
 plotBiObj2D(A, b, obj, type = c("c", "i"), crit = "min")
 obj <- matrix(c(-1, -1, 2, 2), nrow = 2)
 plotBiObj2D(A, b, obj, type = c("c", "i"), crit = "min")
-
+}
 
 ### Set up 3D plot
+\donttest{
 # Function for plotting the solution and criterion space in one plot (three variables)
 plotBiObj3D <- function(A, b, obj,
                         type = rep("c", ncol(A)),

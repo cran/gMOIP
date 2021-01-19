@@ -39,23 +39,24 @@ i'th column of \code{pts} minus a value greater than on equal zero (maximize obj
 
 \item{drawBBoxHull}{If addRays then draw the hull areas hitting the bounding box also.}
 
-\item{...}{Further arguments passed on the the rgl plotting functions. This must be done as
+\item{...}{Further arguments passed on the the RGL plotting functions. This must be done as
 lists (see examples). Currently the following arguments are supported:
 \itemize{
 \item \code{argsPlot3d}: A list of arguments for \code{\link[rgl:plot3d]{rgl::plot3d}}.
-\item \code{argsSegments3d}: A list of arguments for \code{\link[rgl:points3d]{rgl::segments3d}}.
+\item \code{argsSegments3d}: A list of arguments for \code{\link[rgl:3dobjects]{rgl::segments3d}}.
 \item \code{argsPolygon3d}: A list of arguments for \code{\link[rgl:polygon3d]{rgl::polygon3d}}.
 \item \code{argsShade3d}: A list of arguments for \code{\link[rgl:mesh3d]{rgl::shade3d}}.
-\item \code{argsText3d}: A list of arguments for \code{\link[rgl:text3d]{rgl::text3d}}.
+\item \code{argsText3d}: A list of arguments for \code{\link[rgl:texts]{rgl::text3d}}.
 }}
 }
 \value{
-The convex hull (invisible).
+A list with hull, \code{pts} classified and object ids (invisible).
 }
 \description{
 Plot the convex hull of a set of points in 3D.
 }
 \examples{
+\donttest{
 ini3D()
 pts<-matrix(c(0,0,0), ncol = 3, byrow = TRUE)
 plotHull3D(pts) # a point
@@ -64,8 +65,9 @@ plotHull3D(pts, drawPoints = TRUE) # a line
 pts<-matrix(c(1,0,0,1,1,1,1,2,2,3,1,1,3,3,3), ncol = 3, byrow = TRUE)
 plotHull3D(pts, drawLines = FALSE, argsPolygon3d = list(alpha=0.6)) # a polygon
 pts<-matrix(c(5,5,5,10,10,5,10,5,5,5,5,10), ncol = 3, byrow = TRUE)
-plotHull3D(pts, argsPolygon3d = list(alpha=0.9), argsSegments3d = list(color="red"))
+lst <- plotHull3D(pts, argsPolygon3d = list(alpha=0.9), argsSegments3d = list(color="red"))
 finalize3D()
+# rgl.pop(id = lst$ids) # remove last hull
 
 ## Using addRays
 pts <- data.frame(x = c(1,3), y = c(1,3), z = c(1,3))
@@ -100,33 +102,35 @@ plotHull3D(pts, drawPoints = TRUE, addText = "coord")
 plotHull3D(pts, addRays = TRUE)
 finalize3D()
 
-\donttest{
-pts <- genNDSet(3, 100)
-pts <- as.data.frame(pts)
+pts <- genNDSet(3, 100, dubND = FALSE)
+pts <- as.data.frame(pts[,1:3])
 
 ini3D(argsPlot3d = list(
-  xlim = c(0,max(pts$x)+10),
-  ylim = c(0,max(pts$y)+10),
-  zlim = c(0,max(pts$z)+10)))
+  xlim = c(0,max(pts[,1])+10),
+  ylim = c(0,max(pts[,2])+10),
+  zlim = c(0,max(pts[,3])+10)))
 plotHull3D(pts, drawPoints = TRUE, addRays = TRUE)
 finalize3D()
 
-ini3D(argsPlot3d = list(xlim = c(0,max(pts[,1])+10),
+ini3D(argsPlot3d = list(
+  xlim = c(0,max(pts[,1])+10),
   ylim = c(0,max(pts[,2])+10),
   zlim = c(0,max(pts[,3])+10)))
 plotHull3D(pts, drawPoints = TRUE, drawPolygons = TRUE, addText = "coord", addRays = TRUE)
 finalize3D()
 
-ini3D(argsPlot3d = list(xlim = c(0,max(pts$x)+10),
-  ylim = c(0,max(pts$y)+10),
-  zlim = c(0,max(pts$z)+10)))
+ini3D(argsPlot3d = list(
+  xlim = c(0,max(pts[,1])+10),
+  ylim = c(0,max(pts[,2])+10),
+  zlim = c(0,max(pts[,3])+10)))
 plotHull3D(pts, drawPoints = TRUE, drawLines = FALSE,
   argsPolygon3d = list(alpha = 1), addRays = TRUE)
 finalize3D()
 
-ini3D(argsPlot3d = list(xlim = c(0,max(pts$x)+2),
-  ylim = c(0,max(pts$y)+2),
-  zlim = c(0,max(pts$z)+2)))
+ini3D(argsPlot3d = list(
+  xlim = c(0,max(pts[,1])+10),
+  ylim = c(0,max(pts[,2])+10),
+  zlim = c(0,max(pts[,3])+10)))
 plotHull3D(pts, drawPoints = TRUE, argsPolygon3d = list(color = "red"), addRays = TRUE)
 plotCones3D(pts, argsPolygon3d = list(alpha = 1), rectangle = TRUE)
 finalize3D()

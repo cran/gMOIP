@@ -11,27 +11,30 @@ plotRectangle3D(a, b, ...)
 
 \item{b}{A vector of length 3.}
 
-\item{...}{Further arguments passed on the the rgl plotting functions. This must be done as
+\item{...}{Further arguments passed on the the RGL plotting functions. This must be done as
 lists (see examples). Currently the following arguments are supported:
 \itemize{
 \item \code{argsPlot3d}: A list of arguments for \code{\link[rgl:plot3d]{rgl::plot3d}}.
-\item \code{argsSegments3d}: A list of arguments for \code{\link[rgl:points3d]{rgl::segments3d}}.
+\item \code{argsSegments3d}: A list of arguments for \code{\link[rgl:3dobjects]{rgl::segments3d}}.
 \item \code{argsPolygon3d}: A list of arguments for \code{\link[rgl:polygon3d]{rgl::polygon3d}}.
 \item \code{argsShade3d}: A list of arguments for \code{\link[rgl:mesh3d]{rgl::shade3d}}.
 }}
 }
 \value{
-The corner points of the rectangle (invisible).
+Object ids (invisible).
 }
 \description{
 The rectangle is defined by {x|a <= x <= b} where a is the minimum values and
 b is the maximum values.
 }
 \examples{
+\donttest{
 ini3D()
 plotRectangle3D(c(0,0,0), c(1,1,1))
 plotRectangle3D(c(1,1,1), c(4,4,3), drawPoints = TRUE, drawLines = FALSE,
            argsPlot3d = list(size=2, type="s", alpha=0.3))
-plotRectangle3D(c(2,2,2), c(3,3,2.5), argsPolygon3d = list(alpha = 1) )
+ids <- plotRectangle3D(c(2,2,2), c(3,3,2.5), argsPolygon3d = list(alpha = 1) )
 finalize3D()
+# rgl.pop(id = ids) remove last object
+}
 }

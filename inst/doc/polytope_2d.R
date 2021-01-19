@@ -2,9 +2,8 @@
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "poly2d-",
   warning=FALSE, message=FALSE, include = TRUE, 
-  fig.show="hold", out.width = "99%", fig.width = 8, fig.align = "center", fig.asp = 0.62
+  out.width = "99%", fig.width = 8, fig.align = "center", fig.asp = 0.62
 )
 
 ## ----setup--------------------------------------------------------------------

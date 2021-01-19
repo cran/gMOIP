@@ -52,8 +52,27 @@ only one is shown) and add the iso profit line.}
 \item{labels}{If \code{NULL} don't add any labels. If 'n' no labels but show the points. If
 'coord' add coordinates to the points. Otherwise number all points from one.}
 
-\item{...}{If 2D arguments passed to the \link{aes_string} function in
-\link{geom_point} or \link{geom_line}.}
+\item{...}{Further arguments passed on the the ggplot plotting functions. This must be done as
+lists. Currently the following arguments are supported:
+\itemize{
+\item \code{argsFaces}: A list of arguments for \code{\link{plotHull2D}}.
+\item \code{argsFeasible}: A list of arguments for \code{ggplotl2} functions:
+\itemize{
+\item \code{geom_point}: A list of arguments for \code{\link[ggplot2:geom_point]{ggplot2::geom_point}}.
+\item \code{geom_line}: A list of arguments for \code{\link[ggplot2:geom_path]{ggplot2::geom_line}}.
+}
+\item \code{argsLabels}: A list of arguments for \code{ggplotl2} functions:
+\itemize{
+\item \code{geom_text}: A list of arguments for \code{\link[ggplot2:geom_text]{ggplot2::geom_text}}.
+}
+\item \code{argsOptimum}:
+\itemize{
+\item \code{geom_point}: A list of arguments for \code{\link[ggplot2:geom_point]{ggplot2::geom_point}}.
+\item \code{geom_abline}: A list of arguments for \code{\link[ggplot2:geom_abline]{ggplot2::geom_abline}}.
+\item \code{geom_label}: A list of arguments for \code{\link[ggplot2:geom_text]{ggplot2::geom_label}}.
+}
+\item \code{argsTheme}: A list of arguments for \code{\link[ggplot2:theme]{ggplot2::theme}}.
+}}
 }
 \value{
 A ggplot2 object.

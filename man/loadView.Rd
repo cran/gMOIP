@@ -18,18 +18,19 @@ loadView(
 
 \item{v}{The view matrix.}
 
-\item{clear}{Call \link{clear3d}.}
+\item{clear}{Call \link[rgl:scene]{rgl::clear3d}.}
 
-\item{close}{Call \link{rgl.close}.}
+\item{close}{Call \link[rgl:rgl.open]{rgl::rgl.close}.}
 
 \item{zoom}{Zoom level.}
 
-\item{...}{Additional parameters passed to \link{view3d}.}
+\item{...}{Additional parameters passed to \link[rgl:viewpoint]{rgl::view3d}.}
 }
 \description{
 Help function to load the view angle for the RGL 3D plot from a file or matrix
 }
 \examples{
+\donttest{
 view <- matrix( c(-0.412063330411911, -0.228006735444069, 0.882166087627411, 0,
 0.910147845745087, -0.0574885793030262, 0.410274744033813, 0, -0.042830865830183,
 0.97196090221405, 0.231208890676498, 0, 0, 0, 0, 1), nc = 4)
@@ -41,7 +42,8 @@ obj <- c(20, 10, 15)
 plotPolytope(A, b, plotOptimum = TRUE, obj = obj, labels = "coord")
 
 # Try to modify the angle in the RGL window
-saveView(print = TRUE)  # get the viewangle to insert into R code
+saveView(print = TRUE)  # get the view angle to insert into R code
+}
 }
 \author{
 Lars Relund \email{lars@relund.dk}

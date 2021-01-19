@@ -13,9 +13,8 @@ editor_options:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "poly2d-",
   warning=FALSE, message=FALSE, include = TRUE, 
-  fig.show="hold", out.width = "99%", fig.width = 8, fig.align = "center", fig.asp = 0.62
+  out.width = "99%", fig.width = 8, fig.align = "center", fig.asp = 0.62
 )
 ```
 
@@ -120,7 +119,7 @@ plotPolytope(
 )
 ```
 
-Note The package don't plot feasible regions that are unbounded e.g if we drop the 2 and 3 
+Note The package don't plot feasible regions that are unbounded e.g if we drop the second and third 
 constraint we get the wrong plot:
 
 ```{r unbounded1}
@@ -296,7 +295,7 @@ gridExtra::grid.arrange(p1, p2, p3, p4, nrow = 2)
 
 ## Saving plots to LaTeX
 
-If you write a paper using LaTeX, you may create a tikz file of the plot for LaTeX using
+If you write a paper using LaTeX, you may create a TikZ file of the plot for LaTeX using
 
 ```{r, eval=FALSE}
 library(tikzDevice)

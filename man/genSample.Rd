@@ -37,8 +37,9 @@ lists (see examples). Currently the following arguments are supported:
 \item \code{plane}: The plane used.
 \item \code{below}: Either true (generate points below the plane), false (generate points above the
 plane) or \code{NULL} (generated on the whole sphere).
-\item \code{factor}: If using a plane. Then the factor multiply \code{n} with so generate enough points
+\item \code{factor}: If using a plane. Then the factor to multiply \code{n} with, so generate enough points
 below/above the plane.
+\item \code{closeToPlane}: If TRUE only return points close to the plane.
 }
 \item \code{argsBox}: A list of arguments for generating points inside boxes:
 \itemize{
@@ -76,6 +77,7 @@ head(pts)
 Rfast::colMinsMaxs(as.matrix(pts))
 plot(pts)
 
+\donttest{
 ## p = 3
 range <- matrix(c(1,100, 50,100, 10,50), ncol = 2, byrow = TRUE )
 ini3D()
@@ -84,6 +86,7 @@ head(pts)
 Rfast::colMinsMaxs(as.matrix(pts))
 plotPoints3D(pts)
 finalize3D()
+}
 
 ## other p
 p <- 10
@@ -91,7 +94,6 @@ range <- c(1,100)
 pts <- genSample(p, 1000, range = range, random = TRUE)
 head(pts)
 Rfast::colMinsMaxs(as.matrix(pts))
-
 
 ### Using sphere
 ## p = 2
@@ -119,6 +121,7 @@ dim(pts)
 Rfast::colMinsMaxs(as.matrix(pts))
 plot(pts, asp=1)
 
+\donttest{
 ## p = 3
 ini3D()
 range <- c(1,100)
@@ -149,6 +152,7 @@ Rfast::colMinsMaxs(as.matrix(pts))
 rgl::spheres3d(cent, radius=r, color = "grey100", alpha=0.1)
 plotPoints3D(pts)
 finalize3D()
+}
 
 ## Other p
 p <- 10
@@ -184,6 +188,7 @@ points(pts, pch = 4, col = "blue")
 pts <- genSample(2, 1000, range = range, box = TRUE, argsBox = list(cor = "idxSplit"))
 plot(pts)
 
+\donttest{
 ## p = 3
 range <- matrix(c(1,100, 1,200, 1,50), ncol = 2, byrow = TRUE )
 ini3D(argsPlot3d = list(box = TRUE, axes = TRUE))
@@ -211,6 +216,7 @@ ini3D(argsPlot3d = list(box = TRUE, axes = TRUE))
 pts <- genSample(3, 1000, range = range, box = TRUE, , argsBox = list(cor = "idxSplit"))
 plotPoints3D(pts)
 finalize3D()
+}
 
 ## other p
 p <- 10

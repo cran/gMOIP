@@ -2,12 +2,12 @@
 % Please edit documentation in R/plot.R
 \name{finalize3D}
 \alias{finalize3D}
-\title{Finalize the rgl window.}
+\title{Finalize the RGL window.}
 \usage{
 finalize3D(...)
 }
 \arguments{
-\item{...}{Further arguments passed on the the rgl plotting functions. This must be done as
+\item{...}{Further arguments passed on the the RGL plotting functions. This must be done as
 lists. Currently the following arguments are supported:
 \itemize{
 \item \code{argsAxes3d}: A list of arguments for \code{\link[rgl:axes3d]{rgl::axes3d}}.
@@ -18,11 +18,18 @@ lists. Currently the following arguments are supported:
 NULL (invisible).
 }
 \description{
-Finalize the rgl window.
+Finalize the RGL window.
 }
 \examples{
+\donttest{
 ini3D()
 pts<-matrix(c(1,1,1,5,5,5), ncol = 3, byrow = TRUE)
 plotPoints3D(pts)
 finalize3D()
+
+ini3D()
+pts<-matrix(c(1,1,1,5,5,5), ncol = 3, byrow = TRUE)
+plotPoints3D(pts)
+finalize3D(argsAxes3d = list(edges = "bbox"))
+}
 }

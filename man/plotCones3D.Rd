@@ -32,21 +32,22 @@ i'th column of \code{pts} minus a value greater than on equal zero (maximize obj
 
 \item{useRGLBBox}{Use the RGL bounding box as ray limits for the cone.}
 
-\item{...}{Further arguments passed on the the rgl plotting functions. This must be done as
+\item{...}{Further arguments passed on the the RGL plotting functions. This must be done as
 lists (see examples). Currently the following arguments are supported:
 \itemize{
 \item \code{argsPlot3d}: A list of arguments for \code{\link[rgl:plot3d]{rgl::plot3d}}.
-\item \code{argsSegments3d}: A list of arguments for \code{\link[rgl:points3d]{rgl::segments3d}}.
+\item \code{argsSegments3d}: A list of arguments for \code{\link[rgl:3dobjects]{rgl::segments3d}}.
 \item \code{argsPolygon3d}: A list of arguments for \code{\link[rgl:polygon3d]{rgl::polygon3d}}.
 }}
 }
 \value{
-NULL (invisible)
+Object ids (invisible).
 }
 \description{
 The cones are defined as the point plus R3+.
 }
 \examples{
+\donttest{
 ini3D(argsPlot3d = list(xlim = c(0,6), ylim = c(0,6), zlim = c(0,6)))
 plotCones3D(c(4,4,4), drawLines = FALSE, drawPoint = TRUE,
            argsPlot3d = list(col = "red", size = 10),
@@ -59,6 +60,8 @@ ini3D(argsPlot3d = list(xlim = c(0,6), ylim = c(0,6), zlim = c(0,6)))
 plotCones3D(c(4,4,4), direction = 1)
 plotCones3D(c(2,2,2), direction = -1)
 plotCones3D(c(4,2,2), direction = c(1,-1,-1))
-plotCones3D(c(2,2,4), direction = c(-1,-1,1))
+ids <- plotCones3D(c(2,2,4), direction = c(-1,-1,1))
 finalize3D()
+# rgl.pop(id = ids) # remove last cone
+}
 }

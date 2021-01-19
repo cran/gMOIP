@@ -16,7 +16,7 @@ addRays(
 
 \item{m}{Minimum values of the bounding box.}
 
-\item{M}{Maximum vlaues of the bounding box.}
+\item{M}{Maximum values of the bounding box.}
 
 \item{direction}{Ray direction. If i'th entry is positive, consider the i'th column of the \code{pts}
 plus a value greater than on equal zero. If negative, consider the i'th column of the \code{pts}
@@ -33,10 +33,10 @@ Add all points on the bounding box hit by the rays.
 Assume that \code{pts} has been checked using \link{.checkPts}.
 }
 \examples{
-pts <- genNDSet(3,10)
+pts <- genNDSet(3,10)[,1:3]
 addRays(pts)
 addRays(pts, dir = c(1,-1,1))
 addRays(pts, dir = c(-1,-1,1), m = c(0,0,0), M = c(100,100,100))
-pts <- genSample(5,20)
+pts <- genSample(5,20)[,1:5]
 addRays(pts)
 }

@@ -1,4 +1,4 @@
-### 2D examples
+#### 2D examples ####
 # Define the model max/min coeff*x st. Ax<=b, x>=0
 A <- matrix(c(-3,2,2,4,9,10), ncol = 2, byrow = TRUE)
 b <- c(3,27,90)
@@ -16,7 +16,8 @@ plotPolytope(
    plotFaces = TRUE,
    plotFeasible = TRUE,
    plotOptimum = FALSE,
-   labels = NULL
+   labels = NULL,
+   argsFaces = list(argsGeom_polygon = list(fill = "red"))
 )
 # With optimum and labels:
 plotPolytope(
@@ -29,7 +30,8 @@ plotPolytope(
    plotFaces = TRUE,
    plotFeasible = TRUE,
    plotOptimum = TRUE,
-   labels = "coord"
+   labels = "coord",
+   argsOptimum = list(lty="solid")
 )
 # Minimize:
 plotPolytope(
@@ -130,7 +132,9 @@ plotPolytope(
    plotFaces = TRUE,
    plotFeasible = TRUE,
    plotOptimum = TRUE,
-   labels = "coord"
+   labels = "coord",
+   argsLabels = list(size = 4, color = "blue"),
+   argsFeasible = list(color = "red", size = 3)
 )
 #ILP model with IP faces:
 plotPolytope(
@@ -162,7 +166,8 @@ plotPolytope(
    plotFaces = FALSE,
    plotFeasible = TRUE,
    plotOptimum = TRUE,
-   labels = "coord"
+   labels = "coord",
+   argsFeasible = list(color = "red")
 )
 # First coordinate integer and with LP faces:
 plotPolytope(
@@ -190,12 +195,13 @@ plotPolytope(
    plotOptimum = TRUE,
    labels = "coord"
 )
+}
 
 
 
-
-### 3D examples
+#### 3D examples ####
 # Ex 1
+\donttest{
 view <- matrix( c(-0.412063330411911, -0.228006735444069, 0.882166087627411, 0, 0.910147845745087,
                   -0.0574885793030262, 0.410274744033813, 0, -0.042830865830183, 0.97196090221405,
                   0.231208890676498, 0, 0, 0, 0, 1), nc = 4)
@@ -210,6 +216,9 @@ b <- c(55, 26, 30, 57)
 obj <- c(20, 10, 15)
 # LP model
 plotPolytope(A, b, plotOptimum = TRUE, obj = obj, labels = "coord")
+plotPolytope(A, b, plotOptimum = TRUE, obj = obj, labels = "coord",
+             argsFaces = list(drawLines = FALSE, argsPolygon3d = list(alpha = 0.95)),
+             argsLabels = list(points3d = list(color = "blue")))
 # ILP model
 plotPolytope(A, b, faces = c("c","c","c"), type = c("i","i","i"), plotOptimum = TRUE, obj = obj)
 # MILP model

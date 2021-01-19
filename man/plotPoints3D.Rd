@@ -4,7 +4,7 @@
 \alias{plotPoints3D}
 \title{Plot points in 3D.}
 \usage{
-plotPoints3D(pts, addText = F, ...)
+plotPoints3D(pts, addText = FALSE, ...)
 }
 \arguments{
 \item{pts}{A vector or matrix with the points.}
@@ -12,21 +12,22 @@ plotPoints3D(pts, addText = F, ...)
 \item{addText}{Add text to the points. Currently \code{coord} (coordinates), \code{rownames} (rownames)
 and \code{both} supported or a vector with the text.}
 
-\item{...}{Further arguments passed on the the rgl plotting functions. This must be done as
+\item{...}{Further arguments passed on the the RGL plotting functions. This must be done as
 lists (see examples). Currently the following arguments are supported:
 \itemize{
 \item \code{argsPlot3d}: A list of arguments for \code{\link[rgl:plot3d]{rgl::plot3d}}.
 \item \code{argsPch3d}: A list of arguments for \code{\link[rgl:pch3d]{rgl::pch3d}}.
-\item \code{argsText3d}: A list of arguments for \code{\link[rgl:text3d]{rgl::text3d}}.
+\item \code{argsText3d}: A list of arguments for \code{\link[rgl:texts]{rgl::text3d}}.
 }}
 }
 \value{
-NULL (invisible)
+Object ids (invisible).
 }
 \description{
 Plot points in 3D.
 }
 \examples{
+\donttest{
 ini3D()
 pts<-matrix(c(1,1,1,5,5,5), ncol = 3, byrow = TRUE)
 plotPoints3D(pts)
@@ -34,6 +35,9 @@ plotPoints3D(c(2,3,3), argsPlot3d = list(col = "red", size = 10))
 plotPoints3D(c(3,2,3), argsPlot3d = list(col = "blue", size = 10, type="p"))
 plotPoints3D(c(1.5,1.5,1.5), argsPlot3d = list(col = "blue", size = 10, type="p"))
 plotPoints3D(c(2,2,2, 1,1,1), addText = "coord")
-plotPoints3D(c(3,3,3, 4,4,4), addText = "rownames")
+ids <- plotPoints3D(c(3,3,3, 4,4,4), addText = "rownames")
 finalize3D()
+rgl::rglwidget()
+# rgl.pop(ids) # remove the last again
+}
 }
