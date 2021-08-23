@@ -14,6 +14,11 @@ opts_chunk$set(
   out.width = "99%", fig.width = 8, fig.align = "center", fig.asp = 0.62
 )
 
+if (!requireNamespace("rmarkdown", quietly = TRUE) || !rmarkdown::pandoc_available("1.14")) {
+   warning(call. = FALSE, "These vignettes assume rmarkdown and pandoc version 1.14 (or higher). These were not found. Older versions will not work.")
+   knitr::knit_exit()
+}
+
 ## ---- cache=FALSE-------------------------------------------------------------
 library(gMOIP)
 
@@ -56,14 +61,15 @@ ini3D(argsPlot3d = list(xlim = c(min(pts[,1])-2,max(pts[,1])+2),
   zlim = c(min(pts[,3])-2,max(pts[,3])+2)))
 plotHull3D(pts, addRays = TRUE, argsPolygon3d = list(alpha = 0.5), useRGLBBox = TRUE)
 pts <- classifyNDSet(pts[,1:3])
+pts
 plotPoints3D(pts[pts$se,1:3], argsPlot3d = list(col = "red"))
 plotPoints3D(pts[!pts$sne,1:3], argsPlot3d = list(col = "black"))
 plotPoints3D(pts[!pts$us,1:3], argsPlot3d = list(col = "blue"))
 plotCones3D(pts[,1:3], rectangle = TRUE, argsPolygon3d = list(alpha = 1))
 finalize3D()
 rglwidget(reuse = F)
-pts
 
+## -----------------------------------------------------------------------------
 pts <- genNDSet(3,50, dubND = FALSE)[,1:3]
 open3d()
 ini3D(argsPlot3d = list(xlim = c(0,max(pts$z1)+2),
@@ -71,12 +77,12 @@ ini3D(argsPlot3d = list(xlim = c(0,max(pts$z1)+2),
   zlim = c(0,max(pts$z3)+2)))
 plotHull3D(pts, addRays = TRUE, argsPolygon3d = list(alpha = 0.5))
 pts <- classifyNDSet(pts[,1:3])
+pts
 plotPoints3D(pts[pts$se,1:3], argsPlot3d = list(col = "red"))
 plotPoints3D(pts[!pts$sne,1:3], argsPlot3d = list(col = "black"))
 plotPoints3D(pts[!pts$us,1:3], argsPlot3d = list(col = "blue"))
 finalize3D()
 rglwidget(reuse = F)
-pts
 
 ## ---- include=F---------------------------------------------------------------
 rm(list = ls(all.names = TRUE))
