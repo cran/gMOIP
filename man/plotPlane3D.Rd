@@ -30,8 +30,8 @@ plotPlane3D(
 \item{...}{Further arguments passed on the the RGL plotting functions. This must be done as
 lists (see examples). Currently the following arguments are supported:
 \itemize{
-\item \code{argsPlanes3d}: A list of arguments for \link[rgl:planes]{rgl::planes3d} used when \code{useShade = TRUE}.
-\item \code{argsLines}: A list of arguments for \link[rgl:persp3d]{rgl::persp3d} when \code{useLines = TRUE}. Moreover, the list
+\item \code{argsPlanes3d}: A list of arguments for \code{\link[rgl:planes]{rgl::planes3d()}} used when \code{useShade = TRUE}.
+\item \code{argsLines}: A list of arguments for \code{\link[rgl:persp3d]{rgl::persp3d()}} when \code{useLines = TRUE}. Moreover, the list
 may contain \code{lines}: number of lines.
 }}
 }
@@ -57,6 +57,6 @@ plotPlane3D(c(1,1,1), point = c(1,1,1), useLines = TRUE, useShade = TRUE)
 ids <- plotPlane3D(c(1,2,1), point = c(2,2,2), argsLines = list(col="blue", lines = 100),
             useLines = TRUE)
 finalize3D()
-# rgl.pop(id = ids) # remove last plane
+# pop3d(id = ids) # remove last plane
 }
 }

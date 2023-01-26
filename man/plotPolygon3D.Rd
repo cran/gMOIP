@@ -28,12 +28,12 @@ plotPolygon3D(
 lists (see examples). Currently the following arguments are supported:
 \itemize{
 \item \code{argsShade}: A list of arguments for \code{\link[rgl:polygon3d]{rgl::polygon3d}} (n > 4 vertices),
-\link[rgl:3dobjects]{rgl::triangles3d} (n = 3 vertices) and \link[rgl:3dobjects]{rgl::quads3d} (n = 4 vertices)
+\code{\link[rgl:primitives]{rgl::triangles3d()}} (n = 3 vertices) and \code{\link[rgl:primitives]{rgl::quads3d()}} (n = 4 vertices)
 if \code{useShade = TRUE}.
-\item \code{argsFrame}: A list of arguments for \code{\link[rgl:3dobjects]{rgl::lines3d}} if \code{useFrame = TRUE}.
+\item \code{argsFrame}: A list of arguments for \code{\link[rgl:primitives]{rgl::lines3d}} if \code{useFrame = TRUE}.
 \item \code{argsPoints}: A list of arguments for \code{\link[rgl:shade3d]{rgl::shade3d}} if \code{usePoints = TRUE}. It is important
-to give a texture using \code{texture}. A texture can be set using \link{getTexture}.
-\item \code{argsLines}: A list of arguments for \link[rgl:persp3d]{rgl::persp3d} when \code{useLines = TRUE}. Moreover, the list
+to give a texture using \code{texture}. A texture can be set using \code{\link[=getTexture]{getTexture()}}.
+\item \code{argsLines}: A list of arguments for \code{\link[rgl:persp3d]{rgl::persp3d()}} when \code{useLines = TRUE}. Moreover, the list
 may contain \code{lines}: number of lines.
 }}
 }
@@ -45,7 +45,7 @@ Plot a polygon.
 }
 \examples{
 \donttest{
-pts0 <- data.frame(x = c(1,0,0,0.4), y = c(0,1,0,0.3), z = c(0,0,1,0.3))
+pts <- data.frame(x = c(1,0,0,0.4), y = c(0,1,0,0.3), z = c(0,0,1,0.3))
 pts <- data.frame(x = c(1,0,0), y = c(0,1,0), z = c(0,0,1))
 
 ini3D()
@@ -68,10 +68,10 @@ plotPolygon3D(pts, useFrame = TRUE, useLines = TRUE, useShade = TRUE,
 finalize3D()
 
 ini3D()
-ids <- plotPolygon3D(pts, usePoints = TRUE, useShade = TRUE,
-              argsPoints = list(color = "blue", texture = getTexture(pch = 16, cex = 20)))
+ids <- plotPolygon3D(pts, usePoints = TRUE, useFrame = TRUE,
+              argsPoints = list(texture = getTexture(pch = 16, cex = 20)))
 finalize3D()
-# rgl.pop(id = ids) # remove object again
+# pop3d(id = ids) # remove object again
 
 # In general you have to finetune size and numbers when you use textures
 # Different pch
@@ -95,7 +95,7 @@ fname <- getTexture(pch = 16, cex = 20)
 for (i in 1:4) {
   ini3D(TRUE)
   plotPolygon3D(pts, usePoints = TRUE,
-                argsPoints = list(texture = fname, texcoords = rbind(pts$x, pts$y)*5*i))
+                argsPoints = list(texture = fname, texcoords = rbind(pts$x, pts$y, pts$z)*5*i))
   finalize3D()
 }
 }

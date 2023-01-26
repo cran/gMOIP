@@ -12,11 +12,11 @@
 #' @param direction Ray direction. If i'th entry is positive, consider the i'th column of `pts`
 #'   plus a value greater than on equal zero (minimize objective $i$). If negative, consider the
 #'   i'th column of `pts` minus a value greater than on equal zero (maximize objective $i$).
-#' @param drawPlot Draw the ggplot. Set to FALSE if you want to combine hulls in a single plot.
-#' @param drawBBoxHull If addRays then draw the hull areas hitting the bounding box also.
+#' @param drawPlot Draw the `ggplot`. Set to FALSE if you want to combine hulls in a single plot.
+#' @param drawBBoxHull If `addRays` then draw the hull areas hitting the bounding box also.
 #' @param m Minimum values of the bounding box.
 #' @param M Maximum values of the bounding box.
-#' @param ... Further arguments passed on the the ggplot plotting functions. This must be done as
+#' @param ... Further arguments passed on the the `ggplot` plotting functions. This must be done as
 #'   lists. Currently the following arguments are supported:
 #'
 #'   * `argsGeom_point`: A list of arguments for [`ggplot2::geom_point`].
@@ -24,7 +24,7 @@
 #'   * `argsGeom_polygon`: A list of arguments for [`ggplot2::geom_polygon`].
 #'   * `argsGeom_label`: A list of arguments for [`ggplot2::geom_label`].
 #'
-#' @return The ggplot object if `drawPlot = TRUE`; otherwise, a list of ggplot components.
+#' @return The `ggplot` object if `drawPlot = TRUE`; otherwise, a list of `ggplot` components.
 #' @export
 #' @importFrom rlang .data
 #' @import ggplot2
@@ -149,6 +149,9 @@ plotHull2D <- function(pts,
 
 #' Plot the polytope (bounded convex set) of a linear mathematical program
 #'
+#' This is a wrapper function calling [plotPolytope2D()] (2D graphics) and
+#' [plotPolytope3D()] (3D graphics).
+#'
 #' @param A The constraint matrix.
 #' @param b Right hand side.
 #' @param obj A vector with objective coefficients.
@@ -156,7 +159,7 @@ plotHull2D <- function(pts,
 #'   entry k is 'i' variable \eqn{k} must be integer and if 'c' continuous.
 #' @param nonneg A boolean vector of same length as number of variables. If
 #'   entry k is TRUE then variable k must be non-negative.
-#' @param crit Either max or min (only used if add the iso profit line)
+#' @param crit Either max or min (only used if add the iso-profit line)
 #' @param faces A character vector of same length as number of variables. If
 #'   entry k is 'i' variable \eqn{k} must be integer and if 'c' continuous.
 #'   Useful if e.g. want to show the linear relaxation of an IP.
@@ -164,11 +167,11 @@ plotHull2D <- function(pts,
 #' @param plotFeasible If \code{True} then plot the feasible points/segments
 #'   (relevant for IPLP/MILP).
 #' @param plotOptimum Show the optimum corner solution point (if alternative solutions
-#'   only one is shown) and add the iso profit line.
+#'   only one is shown) and add the iso-profit line.
 #' @param latex If \code{True} make latex math labels for TikZ.
-#' @param labels If \code{NULL} don't add any labels. If 'n' no labels but show the points. If
-#'   'coord' add coordinates to the points. Otherwise number all points from one.
-#' @param ... If 2D, further arguments passed on the the ggplot plotting functions. This must be
+#' @param labels If \code{NULL} don't add any labels. If 'n' no labels but show the points. If equal
+#'   `coord` add coordinates to the points. Otherwise number all points from one.
+#' @param ... If 2D, further arguments passed on the the `ggplot` plotting functions. This must be
 #'   done as lists. Currently the following arguments are supported:
 #'
 #'   * `argsFaces`: A list of arguments for [`plotHull2D`].
@@ -190,20 +193,20 @@ plotHull2D <- function(pts,
 #'   * `argsPlot3d`: A list of arguments for [`rgl::plot3d`] to open the RGL window.
 #'   * `argsTitle3d`: A list of arguments for [`rgl::title3d`].
 #'   * `argsFaces`: A list of arguments for [`plotHull3D`].
-#'   * `argsFeasible`: A list of arguments for rgl functions:
+#'   * `argsFeasible`: A list of arguments for RGL functions:
 #'      - `points3d`: A list of arguments for [`rgl::points3d`].
 #'      - `segments3d`: A list of arguments for [`rgl::segments3d`].
 #'      - `triangles3d`: A list of arguments for [`rgl::triangles3d`].
-#'   * `argsLabels`: A list of arguments for rgl functions:
+#'   * `argsLabels`: A list of arguments for RGL functions:
 #'      - `points3d`: A list of arguments for [`rgl::points3d`].
 #'      - `text3d`: A list of arguments for [`rgl::text3d`].
-#'   * `argsOptimum`: A list of arguments for rgl functions:
+#'   * `argsOptimum`: A list of arguments for RGL functions:
 #'      - `points3d`: A list of arguments for [`rgl::points3d`].
 #'
 #' @note The feasible region defined by the constraints must be bounded (i.e. no extreme rays)
 #'   otherwise you may see strange results.
 #'
-#' @return If 2D a ggplot2 object. If 3D a RGL window with the 3D plot.
+#' @return If 2D a `ggplot` object. If 3D a RGL window with the 3D plot.
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @export
 #' @import rgl ggplot2
@@ -244,7 +247,7 @@ plotPolytope <- function(A,
 #'   entry k is 'i' variable \eqn{k} must be integer and if 'c' continuous.
 #' @param nonneg A boolean vector of same length as number of variables. If
 #'   entry k is TRUE then variable k must be non-negative.
-#' @param crit Either max or min (only used if add the iso profit line)
+#' @param crit Either max or min (only used if add the iso-profit line)
 #' @param faces A character vector of same length as number of variables. If
 #'   entry k is 'i' variable \eqn{k} must be integer and if 'c' continuous.
 #'   Useful if e.g. want to show the linear relaxation of an IP.
@@ -252,11 +255,11 @@ plotPolytope <- function(A,
 #' @param plotFeasible If \code{True} then plot the feasible points/segments
 #'   (relevant for ILP/MILP).
 #' @param plotOptimum Show the optimum corner solution point (if alternative solutions
-#'   only one is shown) and add the iso profit line.
+#'   only one is shown) and add the iso-profit line.
 #' @param latex If \code{True} make latex math labels for TikZ.
-#' @param labels If \code{NULL} don't add any labels. If 'n' no labels but show the points. If
-#'   'coord' add coordinates to the points. Otherwise number all points from one.
-#' @param ... Further arguments passed on the the ggplot plotting functions. This must be done as
+#' @param labels If \code{NULL} don't add any labels. If 'n' no labels but show the points. If equal
+#'   `coord` add coordinates to the points. Otherwise number all points from one.
+#' @param ... Further arguments passed on the the `ggplot` plotting functions. This must be done as
 #'   lists. Currently the following arguments are supported:
 #'
 #'   * `argsFaces`: A list of arguments for [`plotHull2D`].
@@ -271,7 +274,10 @@ plotPolytope <- function(A,
 #'      - `geom_label`: A list of arguments for [`ggplot2::geom_label`].
 #'   * `argsTheme`: A list of arguments for [`ggplot2::theme`].
 #'
-#' @return A ggplot2 object.
+#' @return A `ggplot` object.
+#' @note In general use [plotPolytope()] instead of this function. The feasible region defined by the constraints must be bounded otherwise you may see
+#'   strange results.
+#' @seealso [plotPolytope()] for examples.
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @import ggplot2
 plotPolytope2D <-
@@ -368,7 +374,7 @@ plotPolytope2D <-
    }
 
    if (plotOptimum) {
-      if (!is.null(obj)) {    # add iso profit line
+      if (!is.null(obj)) {    # add iso-profit line
          tmp <- points
          tmp$lbl <- df2String(tmp)
          tmp$z <- as.matrix(points[,1:2]) %*% obj
@@ -405,7 +411,7 @@ plotPolytope2D <-
 #'   entry k is 'i' variable \eqn{k} must be integer and if 'c' continuous.
 #' @param nonneg A boolean vector of same length as number of variables. If
 #'   entry k is TRUE then variable k must be non-negative.
-#' @param crit Either max or min (only used if add the iso profit line)
+#' @param crit Either max or min (only used if add the iso-profit line)
 #' @param faces A character vector of same length as number of variables. If
 #'   entry k is 'i' variable \eqn{k} must be integer and if 'c' continuous.
 #'   Useful if e.g. want to show the linear relaxation of an IP.
@@ -413,10 +419,10 @@ plotPolytope2D <-
 #' @param plotFeasible If \code{True} then plot the feasible points/segments
 #'   (relevant for ILP/MILP).
 #' @param plotOptimum Show the optimum corner solution point (if alternative solutions
-#'   only one is shown) and add the iso profit line.
+#'   only one is shown) and add the iso-profit line.
 #' @param latex If \code{True} make latex math labels for TikZ.
-#' @param labels If \code{NULL} don't add any labels. If 'n' no labels but show the points. If
-#'   'coord' add coordinates to the points. Otherwise number all points from one.
+#' @param labels If \code{NULL} don't add any labels. If 'n' no labels but show the points. If equal
+#'   `coord` add coordinates to the points. Otherwise number all points from one.
 #' @param ... Further arguments passed on the the RGL plotting functions. This must be done as
 #'   lists. Currently the following arguments are supported:
 #'
@@ -424,19 +430,19 @@ plotPolytope2D <-
 #'   * `argsPlot3d`: A list of arguments for [`rgl::plot3d`] to open the RGL window.
 #'   * `argsTitle3d`: A list of arguments for [`rgl::title3d`].
 #'   * `argsFaces`: A list of arguments for [`plotHull3D`].
-#'   * `argsFeasible`: A list of arguments for rgl functions:
+#'   * `argsFeasible`: A list of arguments for RGL functions:
 #'      - `points3d`: A list of arguments for [`rgl::points3d`].
 #'      - `segments3d`: A list of arguments for [`rgl::segments3d`].
 #'      - `triangles3d`: A list of arguments for [`rgl::triangles3d`].
-#'   * `argsLabels`: A list of arguments for rgl functions:
+#'   * `argsLabels`: A list of arguments for RGL functions:
 #'      - `points3d`: A list of arguments for [`rgl::points3d`].
 #'      - `text3d`: A list of arguments for [`rgl::text3d`].
-#'   * `argsOptimum`: A list of arguments for rgl functions:
+#'   * `argsOptimum`: A list of arguments for RGL functions:
 #'      - `points3d`: A list of arguments for [`rgl::points3d`].
 #'
-#' @note The feasible region defined by the constraints must be bounded otherwise you may see
+#' @note In general use [plotPolytope()] instead of this function. The feasible region defined by the constraints must be bounded otherwise you may see
 #'   strange results.
-#'
+#' @seealso [plotPolytope()] for examples.
 #' @return A RGL window with 3D plot.
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @import rgl
@@ -543,6 +549,7 @@ plotPolytope3D <-
 
       do.call(axes3d, args = argsAxes3d)
       do.call(title3d, args = argsTitle3d)
+      rgl::highlevel()
    }
 
 
@@ -564,18 +571,18 @@ mergeLists <- function (a,b) {
 #'   entry k is 'i' variable \eqn{k} must be integer and if 'c' continuous.
 #' @param nonneg A boolean vector of same length as number of variables. If
 #'   entry k is TRUE then variable k must be non-negative.
-#' @param crit Either max or min (only used if add the iso profit line).
+#' @param crit Either max or min (only used if add the iso-profit line).
 #' @param addTriangles Add search triangles defined by the non-dominated extreme
 #'   points.
 #' @param addHull Add the convex hull and the rays.
 #' @param plotFeasible If \code{True} then plot the criterion points/slices.
 #' @param latex If true make latex math labels for TikZ.
-#' @param labels If \code{NULL} don't add any labels. If 'n' no labels but show the points. If
-#'   'coord' add coordinates to the points. Otherwise number all points from one.
+#' @param labels If \code{NULL} don't add any labels. If 'n' no labels but show the points. If equal
+#'   `coord` add coordinates to the points. Otherwise number all points from one.
 #'
 #' @note Currently only points are checked for dominance. That is, for MILP
 #'   models some nondominated points may in fact be dominated by a segment.
-#' @return The ggplot2 object.
+#' @return The `ggplot` object.
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @export
 #' @import ggplot2
@@ -797,10 +804,10 @@ saveView <- function(fname = "view.RData", overwrite = FALSE, print = FALSE) {
 #'
 #' @param fname The file name of the view.
 #' @param v The view matrix.
-#' @param clear Call [rgl::clear3d].
-#' @param close Call [rgl::rgl.close].
+#' @param clear Call [rgl::clear3d()].
+#' @param close Call [rgl::close3d()].
 #' @param zoom Zoom level.
-#' @param ... Additional parameters passed to [rgl::view3d].
+#' @param ... Additional parameters passed to [rgl::view3d()].
 #'
 #' @return NULL
 #' @author Lars Relund \email{lars@@relund.dk}
@@ -822,7 +829,7 @@ saveView <- function(fname = "view.RData", overwrite = FALSE, print = FALSE) {
 #' }
 loadView <- function(fname = "view.RData", v = NULL, clear = TRUE, close = FALSE, zoom = 1, ...) {
    if (clear) rgl::clear3d()
-   if (close) rgl::rgl.close()
+   if (close) rgl::close3d()
    if (!is.null(v)) {
       rgl::view3d(userMatrix = v, zoom = zoom, ...)
    } else {
@@ -840,17 +847,17 @@ loadView <- function(fname = "view.RData", v = NULL, clear = TRUE, close = FALSE
 #' Create a plot of a discrete non-dominated set.
 #'
 #' @param points Data frame with non-dominated points.
-#' @param crit Either max or min (only used if add the iso profit line). A vector is currently not
+#' @param crit Either max or min (only used if add the iso-profit line). A vector is currently not
 #'   supported.
 #' @param addTriangles Add search triangles defined by the non-dominated extreme points.
 #' @param addHull Add the convex hull and the rays.
 #' @param latex If true make latex math labels for TikZ.
-#' @param labels If \code{NULL} don't add any labels. If 'n' no labels but show the points. If
-#'   'coord' add coordinates to the points. Otherwise number all points from one.
+#' @param labels If \code{NULL} don't add any labels. If 'n' no labels but show the points. If equal
+#'   `coord` add coordinates to the points. Otherwise number all points from one.
 #'
 #' @note Currently only points are checked for dominance. That is, for MILP models some
 #'   nondominated points may in fact be dominated by a segment.
-#' @return The ggplot2 object.
+#' @return The `ggplot` object.
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @export
 #' @import ggplot2
@@ -977,9 +984,9 @@ plotNDSet2D <- function(points,
 #'   lists (see examples). Currently the following arguments are supported:
 #'
 #'   * `argsPlot3d`: A list of arguments for [`rgl::plot3d`].
-#'   * `argsSegments3d`: A list of arguments for [`rgl::segments3d`][rgl::points3d].
+#'   * `argsSegments3d`: A list of arguments for [`rgl::segments3d`][rgl::points3d()].
 #'   * `argsPolygon3d`: A list of arguments for [`rgl::polygon3d`].
-#'   * `argsShade3d`: A list of arguments for [`rgl::shade3d`][rgl::mesh3d].
+#'   * `argsShade3d`: A list of arguments for [`rgl::shade3d`][rgl::mesh3d()].
 #'
 #' @return Object ids (invisible).
 #' @export
@@ -992,7 +999,7 @@ plotNDSet2D <- function(points,
 #'            argsPlot3d = list(size=2, type="s", alpha=0.3))
 #' ids <- plotRectangle3D(c(2,2,2), c(3,3,2.5), argsPolygon3d = list(alpha = 1) )
 #' finalize3D()
-#' # rgl.pop(id = ids) remove last object
+#' # pop3d(id = ids) remove last object
 #' }
 plotRectangle3D <- function(a, b, ...) {
    args <- list(...)
@@ -1027,12 +1034,12 @@ plotRectangle3D <- function(a, b, ...) {
 #'   lists (see examples). Currently the following arguments are supported:
 #'
 #'   * `argsShade`: A list of arguments for [`rgl::polygon3d`] (n > 4 vertices),
-#'                  [rgl::triangles3d] (n = 3 vertices) and [rgl::quads3d] (n = 4 vertices)
+#'                  [rgl::triangles3d()] (n = 3 vertices) and [rgl::quads3d()] (n = 4 vertices)
 #'                  if `useShade = TRUE`.
 #'   * `argsFrame`: A list of arguments for [`rgl::lines3d`] if `useFrame = TRUE`.
 #'   * `argsPoints`: A list of arguments for [`rgl::shade3d`] if `usePoints = TRUE`. It is important
-#'                   to give a texture using `texture`. A texture can be set using [getTexture].
-#'   * `argsLines`: A list of arguments for [rgl::persp3d] when `useLines = TRUE`. Moreover, the list
+#'                   to give a texture using `texture`. A texture can be set using [getTexture()].
+#'   * `argsLines`: A list of arguments for [rgl::persp3d()] when `useLines = TRUE`. Moreover, the list
 #'                  may contain `lines`: number of lines.
 #'
 #' @return Object ids (invisible).
@@ -1041,7 +1048,7 @@ plotRectangle3D <- function(a, b, ...) {
 #'
 #' @examples
 #' \donttest{
-#' pts0 <- data.frame(x = c(1,0,0,0.4), y = c(0,1,0,0.3), z = c(0,0,1,0.3))
+#' pts <- data.frame(x = c(1,0,0,0.4), y = c(0,1,0,0.3), z = c(0,0,1,0.3))
 #' pts <- data.frame(x = c(1,0,0), y = c(0,1,0), z = c(0,0,1))
 #'
 #' ini3D()
@@ -1064,10 +1071,10 @@ plotRectangle3D <- function(a, b, ...) {
 #' finalize3D()
 #'
 #' ini3D()
-#' ids <- plotPolygon3D(pts, usePoints = TRUE, useShade = TRUE,
-#'               argsPoints = list(color = "blue", texture = getTexture(pch = 16, cex = 20)))
+#' ids <- plotPolygon3D(pts, usePoints = TRUE, useFrame = TRUE,
+#'               argsPoints = list(texture = getTexture(pch = 16, cex = 20)))
 #' finalize3D()
-#' # rgl.pop(id = ids) # remove object again
+#' # pop3d(id = ids) # remove object again
 #'
 #' # In general you have to finetune size and numbers when you use textures
 #' # Different pch
@@ -1091,20 +1098,21 @@ plotRectangle3D <- function(a, b, ...) {
 #' for (i in 1:4) {
 #'   ini3D(TRUE)
 #'   plotPolygon3D(pts, usePoints = TRUE,
-#'                 argsPoints = list(texture = fname, texcoords = rbind(pts$x, pts$y)*5*i))
+#'                 argsPoints = list(texture = fname, texcoords = rbind(pts$x, pts$y, pts$z)*5*i))
 #'   finalize3D()
 #' }
 #' }
 plotPolygon3D <- function(pts, useShade = TRUE, useLines = FALSE, usePoints = FALSE,
                           useFrame = TRUE, ...) {
    args <- list(...)
+   # args <- list(argsPoints=argsPoints)
    argsShade <- mergeLists(list(color = "black", col = "grey40",
-                                    lwd = 2, alpha = 0.2, fill = TRUE,
-                                    texcoords = rbind(pts[,1], pts[,2])*10 ),
+                                    lwd = 2, alpha = 0.2, fill = TRUE),
                                args$argsShade)
    argsFrame <- mergeLists(list(color = "black", lwd = 1, alpha = 0.8), args$argsFrame)
-   argsPoints <- mergeLists(list(color = "white", specular = "black", alpha = 0.5,
-                                 texcoords = rbind(pts[,1], pts[,2])*10 ),
+   argsPoints <- mergeLists(list(color = "grey", specular = "black", alpha = 0.5,
+                                 texcoords = rbind(pts[,1], pts[,2], pts[,3])*25
+                                 ),
                            args$argsPoints)
    argsLines <- mergeLists(list(color = "black", lwd = 1, alpha = 0.4, lines = 50, back = 'lines',
                                 front = 'lines', lit = FALSE),
@@ -1135,12 +1143,12 @@ plotPolygon3D <- function(pts, useShade = TRUE, useLines = FALSE, usePoints = FA
       if (nrow(pts) > 3)
          poly <- do.call(rgl::polygon3d, args = c(list(pts, plot = FALSE), argsPoints))
       if (nrow(pts) == 3)
-         poly <- tmesh3d(rbind(pts[,1], pts[,2], pts[,3], 1), indices = 1:3)
-      poly$texcoords <- argsPoints$texcoords
+         poly <- mesh3d(vertices = rbind(pts[,1], pts[,2], pts[,3], 1), triangles = 1:3)
+      # poly$texcoords <- argsPoints$texcoords
       ids <- c(ids, do.call(rgl::shade3d, args = c(list(poly), argsPoints)))
    }
    if (useLines) {
-      if (!rgl::rgl.cur()) stop("Option useLines need an open rgl window!")
+      if (!rgl::cur3d()) stop("Option useLines need an open RGL window!")
       limits <- rgl::par3d()$bbox
       m <- c(limits[1], limits[3], limits[5])
       M <- c(limits[2], limits[4], limits[6])
@@ -1154,14 +1162,15 @@ plotPolygon3D <- function(pts, useShade = TRUE, useLines = FALSE, usePoints = FA
       z <- predict(lm(z ~ x + y, data = pts), newdata = data.frame(x=xy[,1], y=xy[,2]))
       ids <- c(ids, do.call(rgl::persp3d, args = c(list(x, y, z, add = TRUE), argsLines)))
    }
+   print(rgl::highlevel())
    return(invisible(ids))
 }
 
 
-#' Save a pch symbol as a temporary file.
+#' Save a point symbol as a temporary file.
 #'
-#' @param pch Pch number/symbol.
-#' @param cex Pch size
+#' @param pch Point number/symbol.
+#' @param cex Point size
 #' @param ...  Further arguments passed to `plot`.
 #'
 #' @return The file name.
@@ -1211,7 +1220,7 @@ getTexture <- function(pch = 16, cex = 10, ...) {
 #'   lists (see examples). Currently the following arguments are supported:
 #'
 #'   * `argsPlot3d`: A list of arguments for [`rgl::plot3d`].
-#'   * `argsSegments3d`: A list of arguments for [`rgl::segments3d`][rgl::points3d].
+#'   * `argsSegments3d`: A list of arguments for [`rgl::segments3d`][rgl::points3d()].
 #'   * `argsPolygon3d`: A list of arguments for [`rgl::polygon3d`].
 #'
 #' @return Object ids (invisible).
@@ -1233,7 +1242,7 @@ getTexture <- function(pch = 16, cex = 10, ...) {
 #' plotCones3D(c(4,2,2), direction = c(1,-1,-1))
 #' ids <- plotCones3D(c(2,2,4), direction = c(-1,-1,1))
 #' finalize3D()
-#' # rgl.pop(id = ids) # remove last cone
+#' # pop3d(id = ids) # remove last cone
 #' }
 plotCones3D <-
    function(pts,
@@ -1277,12 +1286,12 @@ plotCones3D <-
 #' @param direction Ray direction. If i'th entry is positive, consider the i'th column of `pts`
 #'   plus a value greater than on equal zero (minimize objective $i$). If negative, consider the
 #'   i'th column of `pts` minus a value greater than on equal zero (maximize objective $i$).
-#' @param drawPlot Draw the ggplot. Set to FALSE if you want to combine hulls in a single plot.
+#' @param drawPlot Draw the `ggplot`. Set to FALSE if you want to combine hulls in a single plot.
 #' @param m Minimum values of the bounding box.
 #' @param M Maximum values of the bounding box.
 #' @param ... Further arguments passed to [plotHull2D]
 #'
-#' @return A ggplot object
+#' @return A `ggplot` object
 #' @export
 #' @import ggplot2
 #' @examples
@@ -1340,14 +1349,14 @@ plotCones2D <-
 #' @param direction Ray direction. If i'th entry is positive, consider the i'th column of `pts`
 #'   plus a value greater than on equal zero (minimize objective $i$). If negative, consider the
 #'   i'th column of `pts` minus a value greater than on equal zero (maximize objective $i$).
-#' @param drawBBoxHull If addRays then draw the hull areas hitting the bounding box also.
+#' @param drawBBoxHull If `addRays` then draw the hull areas hitting the bounding box also.
 #' @param ... Further arguments passed on the the RGL plotting functions. This must be done as
 #'   lists (see examples). Currently the following arguments are supported:
 #'
 #'   * `argsPlot3d`: A list of arguments for [`rgl::plot3d`].
-#'   * `argsSegments3d`: A list of arguments for [`rgl::segments3d`][rgl::points3d].
+#'   * `argsSegments3d`: A list of arguments for [`rgl::segments3d`][rgl::points3d()].
 #'   * `argsPolygon3d`: A list of arguments for [`rgl::polygon3d`].
-#'   * `argsShade3d`: A list of arguments for [`rgl::shade3d`][rgl::mesh3d].
+#'   * `argsShade3d`: A list of arguments for [`rgl::shade3d`][rgl::mesh3d()].
 #'   * `argsText3d`: A list of arguments for [`rgl::text3d`].
 #'
 #' @return A list with hull, `pts` classified and object ids (invisible).
@@ -1365,7 +1374,7 @@ plotCones2D <-
 #' pts<-matrix(c(5,5,5,10,10,5,10,5,5,5,5,10), ncol = 3, byrow = TRUE)
 #' lst <- plotHull3D(pts, argsPolygon3d = list(alpha=0.9), argsSegments3d = list(color="red"))
 #' finalize3D()
-#' # rgl.pop(id = lst$ids) # remove last hull
+#' # pop3d(id = lst$ids) # remove last hull
 #'
 #' ## Using addRays
 #' pts <- data.frame(x = c(1,3), y = c(1,3), z = c(1,3))
@@ -1590,7 +1599,7 @@ plotHull3D <- function(pts,
 #' ids <- plotPoints3D(c(3,3,3, 4,4,4), addText = "rownames")
 #' finalize3D()
 #' rgl::rglwidget()
-#' # rgl.pop(ids) # remove the last again
+#' # pop3d(ids) # remove the last again
 #' }
 plotPoints3D <- function(pts, addText = FALSE, ...) {
    args <- list(...)
@@ -1640,8 +1649,8 @@ plotPoints3D <- function(pts, addText = FALSE, ...) {
 #' @param ... Further arguments passed on the the RGL plotting functions. This must be done as
 #'   lists (see examples). Currently the following arguments are supported:
 #'
-#'   * `argsPlanes3d`: A list of arguments for [rgl::planes3d] used when `useShade = TRUE`.
-#'   * `argsLines`: A list of arguments for [rgl::persp3d] when `useLines = TRUE`. Moreover, the list
+#'   * `argsPlanes3d`: A list of arguments for [rgl::planes3d()] used when `useShade = TRUE`.
+#'   * `argsLines`: A list of arguments for [rgl::persp3d()] when `useLines = TRUE`. Moreover, the list
 #'                  may contain `lines`: number of lines.
 #'
 #' @return NULL (invisible)
@@ -1663,7 +1672,7 @@ plotPoints3D <- function(pts, addText = FALSE, ...) {
 #' ids <- plotPlane3D(c(1,2,1), point = c(2,2,2), argsLines = list(col="blue", lines = 100),
 #'             useLines = TRUE)
 #' finalize3D()
-#' # rgl.pop(id = ids) # remove last plane
+#' # pop3d(id = ids) # remove last plane
 #' }
 plotPlane3D <- function(normal, point = NULL, offset = 0, useShade = TRUE, useLines = FALSE,
                         usePoints = FALSE, ...) {
@@ -1675,10 +1684,10 @@ plotPlane3D <- function(normal, point = NULL, offset = 0, useShade = TRUE, useLi
    ids <- NULL
    if (!is.null(point)) offset <- -sum(normal * point)
    if (useShade) {
-      ids <- c(ids, do.call(rgl::planes3d, args = c(list(normal, d = offset), argsPlanes3d) ))
+      ids <- c(ids, do.call(rgl::planes3d, args = c(list(a = normal, d = offset), argsPlanes3d) ))
    }
    # else use points or lines
-   if (!rgl::rgl.cur()) stop("Option useLines or usePoints need an open rgl window!")
+   if (!rgl::cur3d()) stop("Option useLines or usePoints need an open rgl window!")
    limits <- rgl::par3d()$bbox
    m <- c(limits[1], limits[3], limits[5])
    M <- c(limits[2], limits[4], limits[6])
@@ -1710,12 +1719,24 @@ plotPlane3D <- function(normal, point = NULL, offset = 0, useShade = TRUE, useLi
 }
 
 
-#' ggPlot theme for the package
+#' The `ggplot` theme for the package
 #'
-#' @param ... Further arguments parsed to [ggplot2::theme].
+#' @param ... Further arguments parsed to [ggplot2::theme()].
 #'
 #' @return The theme object.
 #' @export
+#'
+#' @examples
+#' pts <- matrix(c(1,1), ncol = 2, byrow = TRUE)
+#' plotHull2D(pts)
+#' pts1 <- matrix(c(2,2, 3,3), ncol = 2, byrow = TRUE)
+#' pts2 <- matrix(c(1,1, 2,2, 0,1), ncol = 2, byrow = TRUE)
+#' ggplot2::ggplot() +
+#'   plotHull2D(pts2, drawPoints = TRUE, addText = "coord", drawPlot = FALSE) +
+#'   plotHull2D(pts1, drawPoints = TRUE, drawPlot = FALSE) +
+#'   gMOIPTheme() +
+#'   ggplot2::xlab(expression(x[1])) +
+#'   ggplot2::ylab(expression(x[2]))
 gMOIPTheme <- function(...) {
    return(
       theme_bw() +
@@ -1760,8 +1781,9 @@ gMOIPTheme <- function(...) {
 #' plotPoints3D(pts)
 #' finalize3D()
 #' }
-ini3D <- function(new = FALSE, clear = TRUE, ...){
+ini3D <- function(new = TRUE, clear = FALSE, ...){
    args <- list(...)
+   # args <- list(argsPlot3d = list(xlim = c(0,6), ylim = c(0,6), zlim = c(0,6)))
    argsPlot3d <-
       mergeLists(list(
          xlab = '',
@@ -1773,10 +1795,10 @@ ini3D <- function(new = FALSE, clear = TRUE, ...){
    argsAspect3d <- mergeLists(list(x = "iso"), args$argsAspect3d)
 
    if (new) rgl::open3d()
-   rgl::highlevel()
    if (clear) rgl::clear3d()
    do.call(rgl::plot3d, args = c(list(x = c(1,1), y = c(1,1), z = c(1,1), type = 'n'), argsPlot3d))
    do.call(rgl::aspect3d, args = argsAspect3d)
+   rgl::highlevel()
    return(invisible(NULL))
 }
 
@@ -1788,7 +1810,7 @@ ini3D <- function(new = FALSE, clear = TRUE, ...){
 #'   * `argsAxes3d`: A list of arguments for [`rgl::axes3d`].
 #'   * `argsTitle3d`: A list of arguments for [`rgl::title3d`][rgl::axes3d].
 #'
-#' @return NULL (invisible).
+#' @return The RGL object (using [rgl::highlevel()]).
 #' @export
 #'
 #' @examples
@@ -1811,8 +1833,7 @@ finalize3D <- function(...){
 
    do.call(rgl::axes3d, args = argsAxes3d)
    do.call(rgl::title3d, args = argsTitle3d)
-   rgl.bringtotop()
-   return(invisible(NULL))
+   rgl::highlevel()
 }
 
 
@@ -1825,7 +1846,7 @@ finalize3D <- function(...){
 #' @param dpi Dpi of the png. Not used if `width` or `height` are specified.
 #' @param fontsize Front size used in the LaTeX document.
 #' @param calcM Estimate 1 em in pixels in the resulting png.
-#' @param crop Call pdfcrop.
+#' @param crop Call command line program `pdfcrop` (must be installed).
 #'
 #' @return The filename of the png or a list if `calcM = TRUE`.
 #' @export
@@ -1883,6 +1904,7 @@ texToPng <- function(tex, width = NULL, height = NULL, dpi = 72, viewPng = FALSE
 #' @param ... Arguments parsed on to `texToPng`.
 #'
 #' @return The width and size of the png.
+#' @keywords internal
 .sizeM <- function(...) {
    f <- texToPng("M", ...)
    return(pngSize(f))
@@ -1979,6 +2001,7 @@ plotTitleTeX3D <- function (main = NULL, sub = NULL, xlab = NULL, ylab = NULL,
 #' @param ranges The bounding box.
 #'
 #' @return A list with ranges.
+#' @keywords internal
 .getRanges <- function (expand = 1.03, ranges = par3d("bbox"))
 {
    ranges <- list(xlim = ranges[1:2], ylim = ranges[3:4], zlim = ranges[5:6])
@@ -2012,7 +2035,7 @@ plotTitleTeX3D <- function (main = NULL, sub = NULL, xlab = NULL, ylab = NULL,
 #' @param line The ``line'' of the plot margin to draw the label on.
 #' @param at The value of a coordinate at which to draw the axis.
 #' @param pos  The position at which to draw the axis or text.
-#' @param ... Further arguments passed to [plotTeX3D].
+#' @param ... Further arguments passed to [plotTeX3D()].
 #'
 #' @return The object IDs of objects added to the scene.
 #' @export
@@ -2067,7 +2090,7 @@ plotMTeX3D <- function (tex, edge, line = 0, at = NULL, pos = NA, ...) {
 #' @param fixedSize Fix the size of the object (no scaling when zoom).
 #' @param tex TeX string.
 #' @param size Size of the generated png.
-#' @param ... Arguments passed on to [rgl::sprites3d] and [texToPng].
+#' @param ... Arguments passed on to [rgl::sprites3d()] and [texToPng()].
 #'
 #' @return The shape ID of the displayed object is returned.
 #' @export

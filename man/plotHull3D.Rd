@@ -37,13 +37,13 @@ and \code{both} supported or a vector with text.}
 plus a value greater than on equal zero (minimize objective $i$). If negative, consider the
 i'th column of \code{pts} minus a value greater than on equal zero (maximize objective $i$).}
 
-\item{drawBBoxHull}{If addRays then draw the hull areas hitting the bounding box also.}
+\item{drawBBoxHull}{If \code{addRays} then draw the hull areas hitting the bounding box also.}
 
 \item{...}{Further arguments passed on the the RGL plotting functions. This must be done as
 lists (see examples). Currently the following arguments are supported:
 \itemize{
 \item \code{argsPlot3d}: A list of arguments for \code{\link[rgl:plot3d]{rgl::plot3d}}.
-\item \code{argsSegments3d}: A list of arguments for \code{\link[rgl:3dobjects]{rgl::segments3d}}.
+\item \code{argsSegments3d}: A list of arguments for \code{\link[rgl:primitives]{rgl::segments3d}}.
 \item \code{argsPolygon3d}: A list of arguments for \code{\link[rgl:polygon3d]{rgl::polygon3d}}.
 \item \code{argsShade3d}: A list of arguments for \code{\link[rgl:mesh3d]{rgl::shade3d}}.
 \item \code{argsText3d}: A list of arguments for \code{\link[rgl:texts]{rgl::text3d}}.
@@ -67,7 +67,7 @@ plotHull3D(pts, drawLines = FALSE, argsPolygon3d = list(alpha=0.6)) # a polygon
 pts<-matrix(c(5,5,5,10,10,5,10,5,5,5,5,10), ncol = 3, byrow = TRUE)
 lst <- plotHull3D(pts, argsPolygon3d = list(alpha=0.9), argsSegments3d = list(color="red"))
 finalize3D()
-# rgl.pop(id = lst$ids) # remove last hull
+# pop3d(id = lst$ids) # remove last hull
 
 ## Using addRays
 pts <- data.frame(x = c(1,3), y = c(1,3), z = c(1,3))
