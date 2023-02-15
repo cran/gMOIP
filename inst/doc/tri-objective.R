@@ -2,7 +2,6 @@
 library(knitr)
 library(rgl)
 library(ggsci)
-library(tidyverse)
 library(magrittr)
 rgl::setupKnitr()
 options(rgl.useNULL=TRUE)
