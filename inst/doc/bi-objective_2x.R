@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 library(knitr)
 opts_chunk$set(
   collapse = TRUE,
@@ -90,7 +90,7 @@ plotBiObj2D(A, b, obj, type = c("c", "i"), crit = "min")
 obj <- matrix(c(-1, -1, 2, 2), nrow = 2)
 plotBiObj2D(A, b, obj, type = c("c", "i"), crit = "min")
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  library(tikzDevice)
 #  tikz(file = "plot_polytope.tex", standAlone=F, width = 7, height = 6)
 #  plotPolytope(

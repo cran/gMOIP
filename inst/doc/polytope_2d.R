@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -245,7 +245,7 @@ p4 <- plotPolytope(
 
 gridExtra::grid.arrange(p1, p2, p3, p4, nrow = 2)
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  library(tikzDevice)
 #  tikz(file = "plot_polytope.tex", standAlone=F, width = 7, height = 6)
 #  plotPolytope(

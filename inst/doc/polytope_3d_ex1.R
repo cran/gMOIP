@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 library(knitr)
 library(rgl)
 rgl::setupKnitr()
@@ -70,6 +70,6 @@ plotPolytope(A, b, type = c("c","i","c"), plotOptimum = TRUE, obj = obj, plotFac
 loadView(v = view, zoom = 0.75)
 plotPolytope(A, b, type = c("c","c","i"), plotOptimum = TRUE, obj = obj, plotFaces = FALSE)
 
-## ---- include=F---------------------------------------------------------------
+## ----include=F----------------------------------------------------------------
 rm(list = ls(all.names = TRUE))
 

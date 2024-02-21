@@ -18,14 +18,14 @@ if (!requireNamespace("rmarkdown", quietly = TRUE) || !rmarkdown::pandoc_availab
    knitr::knit_exit()
 }
 
-## ---- cache=FALSE-------------------------------------------------------------
+## ----cache=FALSE--------------------------------------------------------------
 library(gMOIP)
 
-## ---- webgl=TRUE, cache=FALSE-------------------------------------------------
+## ----webgl=TRUE, cache=FALSE--------------------------------------------------
 view <- matrix( c(0.333316594362259, 0.938472270965576, -0.0903875231742859, 0, 0.83994072675705, -0.339126199483871, -0.423665106296539, 0, -0.428250730037689, 0.0652943551540375, -0.901297807693481, 0, 0, 0, 0, 1), nc = 4)
 loadView(v = view)
 set.seed(1234)
-pts <- genNDSet(3, 100, argsSphere = list(below = FALSE), dubND = FALSE)
+pts <- genNDSet(3, 20, argsSphere = list(below = FALSE), dubND = FALSE)
 pts <- classifyNDSet(pts[,1:3])
 head(pts)
 ini3D(argsPlot3d = list(xlim = c(min(pts[,1])-2,max(pts[,1])+2),
@@ -38,9 +38,9 @@ plotCones3D(pts[,1:3], rectangle = TRUE, argsPolygon3d = list(alpha = 1, color =
 plotHull3D(pts[,1:3], addRays = TRUE, argsPolygon3d = list(alpha = 0.25, color = "red"), useRGLBBox = TRUE)
 finalize3D(argsAxes3d = list(edges = "bbox"))
 
-## ---- webgl=TRUE, cache=FALSE-------------------------------------------------
+## ----webgl=TRUE, cache=FALSE--------------------------------------------------
 loadView(v = view)
-pts <- genNDSet(3, 50, argsSphere = list(below = TRUE), dubND = FALSE)
+pts <- genNDSet(3, 10, argsSphere = list(below = TRUE), dubND = FALSE)
 pts <- classifyNDSet(pts[,1:3])
 ini3D(argsPlot3d = list(xlim = c(min(pts[,1])-2,max(pts[,1])+2),
    ylim = c(min(pts[,2])-2,max(pts[,2])+2),
@@ -69,7 +69,7 @@ finalize3D()
 rglwidget(reuse = F)
 
 ## -----------------------------------------------------------------------------
-pts <- genNDSet(3,50, dubND = FALSE)[,1:3]
+pts <- genNDSet(3,20, dubND = FALSE)[,1:3]
 open3d()
 ini3D(argsPlot3d = list(xlim = c(0,max(pts$z1)+2),
   ylim = c(0,max(pts$z2)+2),
@@ -83,6 +83,6 @@ plotPoints3D(pts[!pts$us,1:3], argsPlot3d = list(col = "blue"))
 finalize3D()
 rglwidget(reuse = F)
 
-## ---- include=F---------------------------------------------------------------
+## ----include=F----------------------------------------------------------------
 rm(list = ls(all.names = TRUE))
 
