@@ -1,3 +1,7 @@
+# gMOIP 1.5.3
+
+* Add classification algorithm for extreme nondominated points.
+
 # gMOIP 1.5.2
 
 * Updated classification algorithm for nondominated sets.
