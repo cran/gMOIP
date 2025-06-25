@@ -91,20 +91,20 @@ obj <- matrix(c(-1, -1, 2, 2), nrow = 2)
 plotBiObj2D(A, b, obj, type = c("c", "i"), crit = "min")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(tikzDevice)
-#  tikz(file = "plot_polytope.tex", standAlone=F, width = 7, height = 6)
-#  plotPolytope(
-#     A,
-#     b,
-#     obj,
-#     type = rep("i", ncol(A)),
-#     crit = "max",
-#     faces = rep("c", ncol(A)),
-#     plotFaces = TRUE,
-#     plotFeasible = TRUE,
-#     plotOptimum = TRUE,
-#     labels = "n",
-#     latex = TRUE
-#  )
-#  dev.off()
+# library(tikzDevice)
+# tikz(file = "plot_polytope.tex", standAlone=F, width = 7, height = 6)
+# plotPolytope(
+#    A,
+#    b,
+#    obj,
+#    type = rep("i", ncol(A)),
+#    crit = "max",
+#    faces = rep("c", ncol(A)),
+#    plotFaces = TRUE,
+#    plotFeasible = TRUE,
+#    plotOptimum = TRUE,
+#    labels = "n",
+#    latex = TRUE
+# )
+# dev.off()
 
